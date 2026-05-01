@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/functions.php';
-require_once 'includes/header.php';
+require_once '../includes/functions.php';
+require_once '../includes/header.php';
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
             $stmt->execute([$name, $email, $hash]);
             $_SESSION['user_id'] = $pdo->lastInsertId();
-            redirect('index.php');
+            redirect('../app/index.php');
         }
     }
 }
@@ -75,6 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </p>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

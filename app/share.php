@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 require_login();
 
 $user_id = $_SESSION['user_id'];
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
         
         $share_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
-                     '://' . $_SERVER['HTTP_HOST'] . '/view_shared.php?token=' . $token;
+                     '://' . $_SERVER['HTTP_HOST'] . '/app/view_shared.php?token=' . $token;
         
         $success = 'Share link generated!';
         $_SESSION['success'] = $success;
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 $generated_token = $_GET['generated'] ?? null;
 $token = $_GET['token'] ?? null;
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 
 <div class="max-w-4xl mx-auto py-8 px-4">
@@ -158,7 +158,7 @@ require_once 'includes/header.php';
                 }
                 if ($found):
                     $share_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
-                                 '://' . $_SERVER['HTTP_HOST'] . '/view_shared.php?token=' . $token;
+                                 '://' . $_SERVER['HTTP_HOST'] . '/app/view_shared.php?token=' . $token;
                 ?>
                 <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
                     <h4 class="font-medium text-blue-900 dark:text-blue-200 mb-2">Share Link Generated</h4>
@@ -203,7 +203,7 @@ require_once 'includes/header.php';
                         if (!$conv) continue;
                         
                         $share_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . 
-                                     '://' . $_SERVER['HTTP_HOST'] . '/view_shared.php?token=' . $shared['public_token'];
+                                     '://' . $_SERVER['HTTP_HOST'] . '/app/view_shared.php?token=' . $shared['public_token'];
                         ?>
                         <div class="p-3 border border-gray-200 dark:border-gray-700 rounded-lg">
                             <div class="flex justify-between items-start">
@@ -245,4 +245,4 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

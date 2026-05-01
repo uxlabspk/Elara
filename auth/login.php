@@ -1,9 +1,9 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 
 // Redirect if already logged in
 if (is_logged_in()) {
-    redirect('index.php');
+    redirect('../app/index.php');
 }
 
 $error = '';
@@ -42,14 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 setcookie('elara_token', $hash, time() + (30 * 24 * 60 * 60), '/', '', true, true);
             }
             
-            redirect('index.php');
+            redirect('../app/index.php');
         } else {
             $error = 'Invalid email or password.';
         }
     }
 }
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 
 <div class="max-w-md mx-auto mt-20 px-4">
@@ -94,7 +94,7 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

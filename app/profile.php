@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 require_login();
 
 $user_id = $_SESSION['user_id'];
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 
 <div class="max-w-4xl mx-auto py-8 px-4">
@@ -107,7 +107,7 @@ require_once 'includes/header.php';
                     <a href="#password" class="block px-3 py-2 rounded text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
                         Change Password
                     </a>
-                    <a href="settings.php" class="block px-3 py-2 rounded text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+                    <a href="/app/settings.php" class="block px-3 py-2 rounded text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
                         App Settings
                     </a>
                 </nav>
@@ -236,4 +236,4 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

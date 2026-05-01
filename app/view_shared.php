@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 
 // Get public token
 $token = trim($_GET['token'] ?? '');
@@ -87,7 +87,7 @@ $owner = $stmt->fetch();
     <nav class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="index.php" class="flex items-center space-x-2">
+                <a href="/app/index.php" class="flex items-center space-x-2">
                     <span class="text-2xl">🧠</span>
                     <span class="font-bold text-xl text-gray-900 dark:text-white">Elara AI</span>
                 </a>
@@ -95,7 +95,7 @@ $owner = $stmt->fetch();
                     <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
                         🌙
                     </button>
-                    <a href="index.php" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Open Elara</a>
+                    <a href="/app/index.php" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Open Elara</a>
                 </div>
             </div>
         </div>
@@ -150,7 +150,7 @@ $owner = $stmt->fetch();
                     This is a shared conversation. You can view but not modify the messages.
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-500 mt-2">
-                    <a href="index.php" class="text-blue-600 hover:text-blue-700 dark:text-blue-400">Start your own conversation with Elara AI</a>
+                    <a href="/app/index.php" class="text-blue-600 hover:text-blue-700 dark:text-blue-400">Start your own conversation with Elara AI</a>
                 </p>
             </div>
         </div>

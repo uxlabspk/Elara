@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 require_login();
 
 $user_id = $_SESSION['user_id'];
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (!isset($_POST['action']) || $_POST
     }
 }
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 
 // Available models (can be expanded)
 $available_models = [
@@ -107,7 +107,7 @@ $languages = [
             <div class="card">
                 <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Settings</h3>
                 <nav class="space-y-2">
-                    <a href="profile.php" class="block px-3 py-2 rounded text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
+                    <a href="/app/profile.php" class="block px-3 py-2 rounded text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
                         Profile
                     </a>
                     <a href="#app-settings" class="block px-3 py-2 rounded text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-400">
@@ -242,4 +242,4 @@ $languages = [
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

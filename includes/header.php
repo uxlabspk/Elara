@@ -72,13 +72,13 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 
                 <!-- Main Navigation -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="index.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
+                    <a href="/app/index.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
                         $current_page == 'index.php' ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100' : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
                     ?>">Chat</a>
-                    <a href="search.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
+                    <a href="/app/search.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
                         $current_page == 'search.php' ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100' : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
                     ?>">Search</a>
-                    <a href="settings.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
+                    <a href="/app/settings.php" class="px-3 py-2 rounded-md text-sm font-medium <?=
                         $current_page == 'settings.php' ? 'bg-blue-100 text-blue-900 dark:bg-blue-900 dark:text-blue-100' : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
                     ?>">Settings</a>
                 </div>
@@ -107,14 +107,14 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                         </button>
                         <div x-show="open" @click.away="open = false" 
                              class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50">
-                            <a href="profile.php" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <a href="/app/profile.php" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Profile
                             </a>
-                            <a href="settings.php" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <a href="/app/settings.php" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 Settings
                             </a>
                             <div class="border-t border-gray-200 dark:border-gray-700 my-1"></div>
-                            <a href="logout.php" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">
+                            <a href="/auth/logout.php" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">
                                 Logout
                             </a>
                         </div>
@@ -132,8 +132,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                     <span class="font-bold text-xl text-gray-900 dark:text-white">Elara AI</span>
                 </a>
                 <div class="flex items-center space-x-4">
-                    <a href="login.php" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
-                    <a href="register.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Register</a>
+                    <a href="/auth/login.php" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>
+                    <a href="/auth/register.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Register</a>
                 </div>
             </div>
         </div>

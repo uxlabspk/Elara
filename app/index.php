@@ -74,7 +74,7 @@ let conversations = [];
 
 // Load conversation list
 function loadConversations() {
-    fetch('../history.php?action=list')
+    fetch('history.php?action=list')
         .then(r => r.json())
         .then(data => {
             conversations = data;
@@ -124,7 +124,7 @@ document.getElementById('conv-search')?.addEventListener('input', renderConversa
 function loadMessages() {
     if (!currentConversationId) return;
     
-    fetch(`../history.php?action=messages&conversation_id=${currentConversationId}`)
+    fetch(`history.php?action=messages&conversation_id=${currentConversationId}`)
         .then(r => r.json())
         .then(messages => {
             document.getElementById('chat-messages').innerHTML = '';
@@ -162,7 +162,7 @@ document.getElementById('chat-form').addEventListener('submit', function(e) {
     input.value = '';
     input.focus();
 
-    fetch('../chat.php', {
+    fetch('chat.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: new URLSearchParams({
@@ -193,14 +193,14 @@ document.getElementById('share-btn')?.addEventListener('click', function() {
         alert('Start a conversation first');
         return;
     }
-    window.location.href = '../share.php';
+    window.location.href = 'share.php';
 });
 
 // Delete button
 document.getElementById('delete-btn')?.addEventListener('click', function() {
     if (!currentConversationId || !confirm('Delete this conversation?')) return;
     
-    fetch('../history.php?action=delete', {
+    fetch('history.php?action=delete', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: new URLSearchParams({

@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/functions.php';
+require_once '../includes/functions.php';
 require_login();
 
 $user_id = $_SESSION['user_id'];
@@ -91,7 +91,7 @@ if (!empty($query) && strlen($query) >= 2) {
     });
 }
 
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 
 <div class="max-w-4xl mx-auto py-8 px-4">
@@ -137,7 +137,7 @@ require_once 'includes/header.php';
                 <?php foreach ($results as $result): ?>
                     <?php if ($result['type'] === 'conversation'): ?>
                         <div class="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg cursor-pointer" 
-                             onclick="window.location.href='index.php?c=<?= $result['id'] ?>'">
+                             onclick="window.location.href='/app/index.php?c=<?= $result['id'] ?>'">
                             <div class="flex items-center space-x-3">
                                 <span class="text-2xl">💬</span>
                                 <div class="flex-1">
@@ -155,7 +155,7 @@ require_once 'includes/header.php';
                         </div>
                     <?php else: // message ?>
                         <div class="p-3 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg" 
-                             onclick="window.location.href='index.php?c=<?= $result['conversation_id'] ?>'">
+                             onclick="window.location.href='/app/index.php?c=<?= $result['conversation_id'] ?>'">
                             <div class="flex items-start space-x-3">
                                 <span class="text-xl mt-1">💭</span>
                                 <div class="flex-1">
@@ -178,4 +178,4 @@ require_once 'includes/header.php';
     </div>
 </div>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

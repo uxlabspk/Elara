@@ -40,7 +40,7 @@ function is_logged_in() {
  */
 function require_login() {
     if (!is_logged_in()) {
-        redirect('login.php');
+        redirect('/auth/login.php');
     }
 }
 

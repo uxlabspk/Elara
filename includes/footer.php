@@ -26,7 +26,7 @@
             html.classList.add(newTheme);
             
             // Save preference via AJAX
-            fetch('settings.php', {
+            fetch('/app/settings.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

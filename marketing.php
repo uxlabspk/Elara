@@ -29,7 +29,7 @@
                 <a href="/app" class="bg-white text-blue-600 hover:bg-gray-100 font-medium py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
                     Start Chatting
                 </a>
-                <a href="/login.php" class="border border-white/20 hover:border-white hover:bg-white/10 py-3 px-8 rounded-lg transition-all duration-300">
+                <a href="/auth/login.php" class="border border-white/20 hover:border-white hover:bg-white/10 py-3 px-8 rounded-lg transition-all duration-300">
                     Sign In
                 </a>
             </div>

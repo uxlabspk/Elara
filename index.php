@@ -3,7 +3,8 @@
  * Router for Elara AI
  * Handles routing for:
  *   / -> marketing.php
- *   /app -> app/index.php (served as static by PHP built-in server)
+ *   /app/* -> app/* (application pages)
+ *   /auth/* -> auth/* (authentication pages)
  * All other requests are attempted to be served as static files.
  */
 

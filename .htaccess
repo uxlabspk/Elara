@@ -1,15 +1,16 @@
 RewriteEngine On
 
-# Test rule - redirect to test page
-RewriteRule ^test$ /test.php [L]
-
 # Route root to marketing page
-RewriteRule ^$ /marketing.php [L]
-RewriteRule ^/$ /marketing.php [L]
+RewriteRule ^$ marketing.php [L]
+RewriteRule ^index\.php$ marketing.php [L]
 
 # Route /app to app directory
-RewriteRule ^app/?$ /app/index.php [L]
-RewriteRule ^app/(.*)$ /app/$1 [L]
+RewriteRule ^app/?$ app/index.php [L]
+RewriteRule ^app/(.+)$ app/$1 [L]
+
+# Route /auth to auth directory
+RewriteRule ^auth/?$ auth/login.php [L]
+RewriteRule ^auth/(.+)$ auth/$1 [L]
 
 # HTTPS redirect (uncomment when ready)
 # RewriteCond %{HTTPS} off
