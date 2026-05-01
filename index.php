@@ -62,7 +62,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
@@ -91,10 +91,10 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-36 pb-28 max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-12 gap-6">
+    <section class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center">
+        <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
-                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     AI Assistant
                 </p>
             </div>
