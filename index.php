@@ -18,9 +18,18 @@ if (strpos($uri, '?') !== false) {
 // Root route: serve landing page
 if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     chdir(__DIR__);
+    // Ensure session is started before accessing $_SESSION
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     require_once 'includes/functions.php';
-    $settings = isset($_SESSION['user_id']) ? get_user_settings($pdo, $_SESSION['user_id']) : [];
-    $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
+    // Safely attempt to load user settings if available
+    $settings = (isset($_SESSION['user_id']) && function_exists('get_user_settings') && isset($pdo)) ? get_user_settings($pdo, $_SESSION['user_id']) : [];
+    $theme = ((($settings['theme'] ?? 'light') == 'dark') ? 'dark' : 'light');
+    // Prepare gradient string for hero background (avoid injecting extra quotes)
+    $hero_gradient = $theme === 'dark'
+        ? 'rgba(3,7,18,0.6), rgba(3,7,18,0.6)'
+        : 'rgba(255,255,255,0.12), rgba(255,255,255,0.12)';
 ?>
 <!DOCTYPE html>
 <html lang="en" class="<?= $theme ?>">
@@ -91,23 +100,24 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center">
-        <div class="grid grid-cols-12 gap-6 w-full">
+    <section style="background-image: linear-gradient(<?php echo ($theme == 'dark' ? "rgba(3,7,18,0.6), rgba(3,7,18,0.6)" : "rgba(255,255,255,0.12), rgba(255,255,255,0.12)"); ?>), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center bg-cover bg-center relative">
+            <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
-                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
                     AI Assistant
                 </p>
             </div>
             
             <div class="col-span-12">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
                     Think bigger.<br>
                     Create faster.
                 </h1>
             </div>
             
             <div class="col-span-12 max-w-xl">
-                <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
                     Your personal AI assistant powered by advanced AI models. 
                     Chat, create, code, and learn with intelligent conversations 
                     that adapt to your needs.
@@ -136,6 +146,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                     </a>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
