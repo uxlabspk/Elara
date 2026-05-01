@@ -1,16 +1,27 @@
 RewriteEngine On
 
+# Test rule - redirect to test page
+RewriteRule ^test$ /test.php [L]
+
+# Route root to marketing page
+RewriteRule ^$ /marketing.php [L]
+RewriteRule ^/$ /marketing.php [L]
+
+# Route /app to app directory
+RewriteRule ^app/?$ /app/index.php [L]
+RewriteRule ^app/(.*)$ /app/$1 [L]
+
 # HTTPS redirect (uncomment when ready)
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
 # Remove trailing slashes
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.+)/$ /$1 [R=301,L]
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.+)/$ /$1 [R=301,L]
 
 # Remove www
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
 
 # Prevent directory listing
 Options -Indexes
