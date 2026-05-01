@@ -54,505 +54,256 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF3B30'/><text x='50' y='65' font-size='50' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>E</text></svg>">
     
     <style>
-        :root {
-            --bg: #FFFFFF;
-            --surface: #FAFAFA;
-            --border: #E5E5E5;
-            --text-primary: #111111;
-            --text-secondary: #666666;
-            --text-muted: #999999;
-            --accent: #FF3B30;
-            --accent-fg: #FFFFFF;
-        }
-
-        [data-theme="dark"] {
-            --bg: #0A0A0A;
-            --surface: #141414;
-            --border: #252525;
-            --text-primary: #FAFAFA;
-            --text-secondary: #A1A1A1;
-            --text-muted: #555555;
-            --accent: #FF3B30;
-            --accent-fg: #FFFFFF;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* Only minimal styles needed for smooth scroll and any edge-cases Tailwind can't handle easily */
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text-primary);
-            line-height: 1.5;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .swiss-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .swiss-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .section-padding { padding: 120px 0; }
-
-        .display-text {
-            font-size: clamp(48px, 8vw, 96px);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -0.03em;
-        }
-
-        .heading-xl {
-            font-size: clamp(36px, 5vw, 56px);
-            font-weight: 700;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        .heading-lg {
-            font-size: clamp(28px, 3vw, 36px);
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        .heading-md {
-            font-size: 20px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        .body-lg { font-size: 18px; line-height: 1.6; }
-        .body-md { font-size: 16px; line-height: 1.6; }
-        .body-sm { font-size: 14px; line-height: 1.5; }
-
-        .text-muted { color: var(--text-secondary); }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 28px;
-            background: var(--accent);
-            color: var(--accent-fg);
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(255, 59, 48, 0.25);
-        }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 16px 28px;
-            background: transparent;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-secondary:hover { border-color: var(--text-primary); }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .nav-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-link:hover { color: var(--text-primary); }
-
-        .accordion-item { border-bottom: 1px solid var(--border); }
-
-        .accordion-header {
-            width: 100%;
-            padding: 24px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 18px;
-            font-weight: 500;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-
-        .accordion-content.open {
-            max-height: 200px;
-            padding-bottom: 24px;
-        }
-
-        .accordion-icon { transition: transform 0.3s ease; }
-        .accordion-icon.open { transform: rotate(45deg); }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (max-width: 768px) {
-            .section-padding { padding: 80px 0; }
-            .swiss-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 16px;
-            }
-        }
     </style>
 </head>
-<body>
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-300 font-sans">
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50" style="background: var(--bg); border-bottom: 1px solid var(--border);">
-        <div class="swiss-container" style="padding: 16px 24px;">
-            <div class="flex items-center justify-between">
-                <a href="#" class="flex items-center gap-2" style="text-decoration: none;">
-                    <span style="font-size: 24px; font-weight: 700; color: var(--accent);">E</span>
-                    <span style="font-weight: 700; font-size: 18px; color: var(--text-primary);">Elara</span>
-                </a>
-                
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#how-it-works" class="nav-link">How it works</a>
-                    <a href="#pricing" class="nav-link">Pricing</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
-                </div>
-                
-                <div class="flex items-center gap-4">
-                    <?php if (is_logged_in()): ?>
-                        <a href="/app/index.php" class="btn-primary" style="padding: 12px 20px; font-size: 14px;">
-                            Go to App
-                        </a>
-                    <?php else: ?>
-                        <a href="/auth/login.php" class="nav-link">Login</a>
-                        <a href="/auth/register.php" class="btn-primary" style="padding: 12px 20px; font-size: 14px;">
-                            Get Started
-                        </a>
-                    <?php endif; ?>
-                </div>
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 no-underline">
+                <span class="text-2xl font-bold text-swiss-red">E</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+            </a>
+            
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Features</a>
+                <a href="#how-it-works" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">How it works</a>
+                <a href="#pricing" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Pricing</a>
+                <a href="#faq" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">FAQ</a>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <?php if (is_logged_in()): ?>
+                    <a href="/app/index.php" class="inline-flex items-center gap-2 px-5 py-2.5 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                        Go to App
+                    </a>
+                <?php else: ?>
+                    <a href="/auth/login.php" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Login</a>
+                    <a href="/auth/register.php" class="inline-flex items-center gap-2 px-5 py-2.5 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                        Get Started
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="section-padding" style="padding-top: 160px; padding-bottom: 120px;">
-        <div class="swiss-container">
-            <div class="swiss-grid">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.1em;">
-                        AI Assistant
-                    </p>
-                </div>
-                
-                <div style="grid-column: span 12;">
-                    <h1 class="display-text fade-in" style="margin-bottom: 24px;">
-                        Think bigger.<br>
-                        Create faster.
-                    </h1>
-                </div>
-                
-                <div style="grid-column: span 12; max-width: 600px;">
-                    <p class="body-lg text-muted fade-in" style="margin-bottom: 40px;">
-                        Your personal AI assistant powered by advanced AI models. 
-                        Chat, create, code, and learn with intelligent conversations 
-                        that adapt to your needs.
-                    </p>
-                </div>
-                
-                <div style="grid-column: span 12;" class="fade-in">
-                    <div class="flex flex-wrap gap-4">
-                        <?php if (!is_logged_in()): ?>
-                            <a href="/auth/register.php" class="btn-primary">
-                                Start Free Chat
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        <?php else: ?>
-                            <a href="/app/index.php" class="btn-primary">
-                                Open Chat
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        <?php endif; ?>
-                        <a href="#features" class="btn-secondary">
-                            See Features
+    <section class="pt-36 pb-28 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-12">
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    AI Assistant
+                </p>
+            </div>
+            
+            <div class="col-span-12">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Think bigger.<br>
+                    Create faster.
+                </h1>
+            </div>
+            
+            <div class="col-span-12 max-w-xl">
+                <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Your personal AI assistant powered by advanced AI models. 
+                    Chat, create, code, and learn with intelligent conversations 
+                    that adapt to your needs.
+                </p>
+            </div>
+            
+            <div class="col-span-12 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <div class="flex flex-wrap gap-4">
+                    <?php if (!is_logged_in()): ?>
+                        <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                            Start Free Chat
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
                         </a>
-                    </div>
+                    <?php else: ?>
+                        <a href="/app/index.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                            Open Chat
+                            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    <?php endif; ?>
+                    <a href="#features" class="inline-flex items-center gap-2 px-7 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all">
+                        See Features
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="section-padding" style="background: var(--surface);">
-        <div class="swiss-container">
-            <div class="swiss-grid" style="margin-bottom: 64px;">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">
+    <section id="features" class="py-28 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-12 gap-6 mb-16">
+                <div class="col-span-12">
+                    <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         Capabilities
                     </p>
-                    <h2 class="heading-xl fade-in">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         Everything you need<br>
                         in one place.
                     </h2>
                 </div>
             </div>
             
-            <div class="swiss-grid">
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #F0FDF4;">
-                            <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Smart Writing</h3>
-                        <p class="body-md text-muted">
-                            Create compelling content with AI assistance. From emails to essays, get help with any writing task.
-                        </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Cards -->
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Smart Writing</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Create compelling content with AI assistance. From emails to essays, get help with any writing task.</p>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #EFF6FF;">
-                            <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
-                                <polyline points="16 18 22 12 16 6"/>
-                                <polyline points="8 6 2 12 8 18"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Code & Debug</h3>
-                        <p class="body-md text-muted">
-                            Write, review, and debug code across multiple programming languages with intelligent suggestions.
-                        </p>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
+                            <polyline points="16 18 22 12 16 6"/>
+                            <polyline points="8 6 2 12 8 18"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Code & Debug</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Write, review, and debug code across multiple programming languages with intelligent suggestions.</p>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #FEF3C7;">
-                            <svg width="24" height="24" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="m21 21-4.35-4.35"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Research</h3>
-                        <p class="body-md text-muted">
-                            Dive deep into any topic with comprehensive analysis and well-sourced information.
-                        </p>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="m21 21-4.35-4.35"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Research</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Dive deep into any topic with comprehensive analysis and well-sourced information.</p>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #FDF4FF;">
-                            <svg width="24" height="24" fill="none" stroke="#9333EA" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Learning</h3>
-                        <p class="body-md text-muted">
-                            Learn new concepts with explanations tailored to your level of understanding.
-                        </p>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#9333EA" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Learning</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Learn new concepts with explanations tailored to your level of understanding.</p>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #FFF1F2;">
-                            <svg width="24" height="24" fill="none" stroke="#E11D48" stroke-width="2" viewBox="0 0 24 24">
-                                <line x1="18" y1="20" x2="18" y2="10"/>
-                                <line x1="12" y1="20" x2="12" y2="4"/>
-                                <line x1="6" y1="20" x2="6" y2="14"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Data Analysis</h3>
-                        <p class="body-md text-muted">
-                            Transform raw data into actionable insights with powerful analytical capabilities.
-                        </p>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#E11D48" stroke-width="2" viewBox="0 0 24 24">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Data Analysis</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Transform raw data into actionable insights with powerful analytical capabilities.</p>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <div class="feature-icon" style="background: #F0F9FF;">
-                            <svg width="24" height="24" fill="none" stroke="#0EA5E9" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                        </div>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Conversations</h3>
-                        <p class="body-md text-muted">
-                            Natural, contextual conversations that remember your context and preferences.
-                        </p>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#0EA5E9" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
                     </div>
+                    <h3 class="text-xl font-semibold mb-3">Conversations</h3>
+                    <p class="text-gray-500 dark:text-gray-400">Natural, contextual conversations that remember your context and preferences.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="section-padding">
-        <div class="swiss-container">
-            <div class="swiss-grid" style="margin-bottom: 64px;">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">
-                        Process
-                    </p>
-                    <h2 class="heading-xl fade-in">
-                        Simple to start.<br>
-                        Powerful results.
-                    </h2>
-                </div>
+    <section id="how-it-works" class="py-28 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-12 gap-6 mb-16">
+            <div class="col-span-12">
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Process
+                </p>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Simple to start.<br>
+                    Powerful results.
+                </h2>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">01</span>
+                <h3 class="text-xl font-semibold mb-3">Ask anything</h3>
+                <p class="text-gray-500 dark:text-gray-400">Type your question or task in natural language. No complicated prompts needed.</p>
             </div>
             
-            <div class="swiss-grid">
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div style="padding: 32px;">
-                        <span class="heading-xl" style="color: var(--text-muted); margin-bottom: 16px; display: block;">01</span>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Ask anything</h3>
-                        <p class="body-md text-muted">
-                            Type your question or task in natural language. No complicated prompts needed.
-                        </p>
-                    </div>
-                </div>
-                
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div style="padding: 32px;">
-                        <span class="heading-xl" style="color: var(--text-muted); margin-bottom: 16px; display: block;">02</span>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Get instant answers</h3>
-                        <p class="body-md text-muted">
-                            Receive intelligent responses tailored to your specific needs and context.
-                        </p>
-                    </div>
-                </div>
-                
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div style="padding: 32px;">
-                        <span class="heading-xl" style="color: var(--text-muted); margin-bottom: 16px; display: block;">03</span>
-                        <h3 class="heading-md" style="margin-bottom: 12px;">Iterate & refine</h3>
-                        <p class="body-md text-muted">
-                            Continue the conversation to refine results until you get exactly what you need.
-                        </p>
-                    </div>
-                </div>
+            <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">02</span>
+                <h3 class="text-xl font-semibold mb-3">Get instant answers</h3>
+                <p class="text-gray-500 dark:text-gray-400">Receive intelligent responses tailored to your specific needs and context.</p>
+            </div>
+            
+            <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">03</span>
+                <h3 class="text-xl font-semibold mb-3">Iterate & refine</h3>
+                <p class="text-gray-500 dark:text-gray-400">Continue the conversation to refine results until you get exactly what you need.</p>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="section-padding" style="background: var(--surface);">
-        <div class="swiss-container">
-            <div class="swiss-grid" style="margin-bottom: 64px;">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">
+    <section class="py-28 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-12 gap-6 mb-16">
+                <div class="col-span-12">
+                    <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         What people say
                     </p>
-                    <h2 class="heading-xl fade-in">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         Trusted by thousands<br>
                         of users worldwide.
                     </h2>
                 </div>
             </div>
             
-            <div class="swiss-grid">
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card">
-                        <p class="body-md" style="margin-bottom: 24px; font-style: italic;">
-                            "Elara has completely transformed how I work. It's like having a brilliant colleague available 24/7."
-                        </p>
-                        <div class="flex items-center gap-3">
-                            <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-                            <div>
-                                <p style="font-weight: 600; font-size: 15px;">Sarah Chen</p>
-                                <p class="body-sm text-muted">Product Designer</p>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"Elara has completely transformed how I work. It's like having a brilliant colleague available 24/7."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-purple-600"></div>
+                        <div>
+                            <p class="font-semibold">Sarah Chen</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Product Designer</p>
                         </div>
                     </div>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card">
-                        <p class="body-md" style="margin-bottom: 24px; font-style: italic;">
-                            "The coding assistance is incredible. It helps me write better code faster and catch bugs before they happen."
-                        </p>
-                        <div class="flex items-center gap-3">
-                            <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
-                            <div>
-                                <p style="font-weight: 600; font-size: 15px;">Alex Rodriguez</p>
-                                <p class="body-sm text-muted">Software Engineer</p>
-                            </div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"The coding assistance is incredible. It helps me write better code faster and catch bugs before they happen."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-600"></div>
+                        <div>
+                            <p class="font-semibold">Alex Rodriguez</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Software Engineer</p>
                         </div>
                     </div>
                 </div>
                 
-                <div style="grid-column: span 4;" class="fade-in">
-                    <div class="card">
-                        <p class="body-md" style="margin-bottom: 24px; font-style: italic;">
-                            "I use Elara daily for research and writing. It's genuinely improved my productivity by leaps and bounds."
-                        </p>
-                        <div class="flex items-center gap-3">
-                            <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
-                            <div>
-                                <p style="font-weight: 600; font-size: 15px;">Emily Watson</p>
-                                <p class="body-sm text-muted">Content Writer</p>
-                            </div>
+                <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"I use Elara daily for research and writing. It's genuinely improved my productivity by leaps and bounds."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-cyan-500"></div>
+                        <div>
+                            <p class="font-semibold">Emily Watson</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Content Writer</p>
                         </div>
                     </div>
                 </div>
@@ -561,160 +312,152 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="section-padding">
-        <div class="swiss-container">
-            <div class="swiss-grid" style="margin-bottom: 64px;">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">
-                        Pricing
-                    </p>
-                    <h2 class="heading-xl fade-in">
-                        Simple, transparent<br>
-                        pricing for everyone.
-                    </h2>
-                </div>
+    <section id="pricing" class="py-28 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-12 gap-6 mb-16">
+            <div class="col-span-12">
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Pricing
+                </p>
+                <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    Simple, transparent<br>
+                    pricing for everyone.
+                </h2>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2">Free</p>
+                <h3 class="text-4xl font-bold mb-2">$0</h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8">Forever free</p>
+                
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Basic AI conversations</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Limited history</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Standard response time</span>
+                    </li>
+                </ul>
+                
+                <a href="/auth/register.php" class="flex items-center justify-center gap-2 w-full py-4 border-2 border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-400 transition-all">
+                    Get Started
+                </a>
             </div>
             
-            <div class="swiss-grid" style="align-items: start;">
-                <div style="grid-column: span 6;" class="fade-in">
-                    <div class="card" style="height: 100%;">
-                        <p class="body-sm" style="color: var(--accent); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Free</p>
-                        <h3 class="heading-lg" style="margin-bottom: 8px;">$0</h3>
-                        <p class="body-md text-muted" style="margin-bottom: 32px;">Forever free</p>
-                        
-                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Basic AI conversations</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Limited history</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Standard response time</span>
-                            </li>
-                        </ul>
-                        
-                        <div style="margin-top: 32px;">
-                            <a href="/auth/register.php" class="btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="bg-white dark:bg-gray-800 border-2 border-swiss-red rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2">Pro</p>
+                <h3 class="text-4xl font-bold mb-2">$19<span class="text-lg font-normal text-gray-500 dark:text-gray-400">/month</span></h3>
+                <p class="text-gray-500 dark:text-gray-400 mb-8">For power users</p>
                 
-                <div style="grid-column: span 6;" class="fade-in">
-                    <div class="card" style="height: 100%; border-color: var(--accent);">
-                        <p class="body-sm" style="color: var(--accent); font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Pro</p>
-                        <h3 class="heading-lg" style="margin-bottom: 8px;">$19<span class="body-md text-muted">/month</span></h3>
-                        <p class="body-md text-muted" style="margin-bottom: 32px;">For power users</p>
-                        
-                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Unlimited conversations</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Unlimited history</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Faster responses</span>
-                            </li>
-                            <li class="flex items-center gap-3">
-                                <svg width="20" height="20" fill="none" stroke="var(--accent)" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12"/>
-                                </svg>
-                                <span class="body-md">Advanced features</span>
-                            </li>
-                        </ul>
-                        
-                        <div style="margin-top: 32px;">
-                            <a href="/auth/register.php" class="btn-primary" style="width: 100%; justify-content: center;">Upgrade to Pro</a>
-                        </div>
-                    </div>
-                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Unlimited conversations</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Unlimited history</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Faster responses</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="text-swiss-red">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span>Advanced features</span>
+                    </li>
+                </ul>
+                
+                <a href="/auth/register.php" class="flex items-center justify-center gap-2 w-full py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                    Upgrade to Pro
+                </a>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="section-padding" style="background: var(--surface);">
-        <div class="swiss-container">
-            <div class="swiss-grid" style="margin-bottom: 64px;">
-                <div style="grid-column: span 12;">
-                    <p class="body-sm fade-in" style="color: var(--accent); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.1em;">
+    <section id="faq" class="py-28 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-12 gap-6 mb-16">
+                <div class="col-span-12">
+                    <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         FAQ
                     </p>
-                    <h2 class="heading-xl fade-in">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         Frequently asked<br>
                         questions.
                     </h2>
                 </div>
             </div>
             
-            <div class="swiss-grid">
-                <div style="grid-column: span 8;">
-                    <div class="fade-in">
-                        <div class="accordion-item">
-                            <button class="accordion-header" onclick="toggleAccordion(this)">
-                                <span>What is Elara AI?</span>
-                                <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14"/>
-                                </svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="body-md text-muted">Elara is your personal AI assistant powered by advanced AI models. It can help you with writing, coding, research, learning, and much more through natural conversations.</p>
-                            </div>
+            <div class="grid grid-cols-12 gap-6">
+                <div class="col-span-12 lg:col-span-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                    <div class="border-b border-gray-200 dark:border-gray-700">
+                        <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
+                            <span>What is Elara AI?</span>
+                            <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                        </button>
+                        <div class="max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="pb-6 text-gray-500 dark:text-gray-400">Elara is your personal AI assistant powered by advanced AI models. It can help you with writing, coding, research, learning, and much more through natural conversations.</div>
                         </div>
-                        
-                        <div class="accordion-item">
-                            <button class="accordion-header" onclick="toggleAccordion(this)">
-                                <span>Is Elara free to use?</span>
-                                <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14"/>
-                                </svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="body-md text-muted">Yes, Elara has a free plan that lets you use basic features indefinitely. We also offer a Pro plan for users who need more advanced features and faster responses.</p>
-                            </div>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 dark:border-gray-700">
+                        <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
+                            <span>Is Elara free to use?</span>
+                            <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                        </button>
+                        <div class="max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="pb-6 text-gray-500 dark:text-gray-400">Yes, Elara has a free plan that lets you use basic features indefinitely. We also offer a Pro plan for users who need more advanced features and faster responses.</div>
                         </div>
-                        
-                        <div class="accordion-item">
-                            <button class="accordion-header" onclick="toggleAccordion(this)">
-                                <span>Is my data secure?</span>
-                                <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14"/>
-                                </svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="body-md text-muted">Absolutely. We take data security seriously and follow industry best practices to protect your information. Your conversations are encrypted and never shared with third parties.</p>
-                            </div>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 dark:border-gray-700">
+                        <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
+                            <span>Is my data secure?</span>
+                            <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                        </button>
+                        <div class="max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="pb-6 text-gray-500 dark:text-gray-400">Absolutely. We take data security seriously and follow industry best practices to protect your information. Your conversations are encrypted and never shared with third parties.</div>
                         </div>
-                        
-                        <div class="accordion-item">
-                            <button class="accordion-header" onclick="toggleAccordion(this)">
-                                <span>Can I cancel anytime?</span>
-                                <svg class="accordion-icon" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M12 5v14M5 12h14"/>
-                                </svg>
-                            </button>
-                            <div class="accordion-content">
-                                <p class="body-md text-muted">Yes, you can cancel your Pro subscription at any time. You'll continue to have access until the end of your billing period.</p>
-                            </div>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 dark:border-gray-700">
+                        <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
+                            <span>Can I cancel anytime?</span>
+                            <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                        </button>
+                        <div class="max-h-0 overflow-hidden transition-all duration-300">
+                            <div class="pb-6 text-gray-500 dark:text-gray-400">Yes, you can cancel your Pro subscription at any time. You'll continue to have access until the end of your billing period.</div>
                         </div>
                     </div>
                 </div>
@@ -723,121 +466,124 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- CTA Section -->
-    <section class="section-padding">
-        <div class="swiss-container">
-            <div class="swiss-grid">
-                <div style="grid-column: span 12; text-align: center;" class="fade-in">
-                    <h2 class="heading-xl" style="margin-bottom: 24px;">
-                        Ready to get started?
-                    </h2>
-                    <p class="body-lg text-muted" style="margin-bottom: 40px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                        Join thousands of users who have already transformed their workflow with Elara.
-                    </p>
-                    <div class="flex flex-wrap gap-4" style="justify-content: center;">
-                        <?php if (!is_logged_in()): ?>
-                            <a href="/auth/register.php" class="btn-primary">
-                                Create Free Account
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        <?php else: ?>
-                            <a href="/app/index.php" class="btn-primary">
-                                Start Chatting
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </div>
+    <section class="py-28 max-w-7xl mx-auto px-6">
+        <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <?php if (!is_logged_in()): ?>
+                    <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                        Create Free Account
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                <?php else: ?>
+                    <a href="/app/index.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
+                        Start Chatting
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer style="border-top: 1px solid var(--border); padding: 48px 0;">
-        <div class="swiss-container">
-            <div class="swiss-grid">
-                <div style="grid-column: span 3;">
-                    <a href="#" class="flex items-center gap-2" style="text-decoration: none; margin-bottom: 16px;">
-                        <span style="font-size: 24px; font-weight: 700; color: var(--accent);">E</span>
-                        <span style="font-weight: 700; font-size: 18px; color: var(--text-primary);">Elara</span>
-                    </a>
-                    <p class="body-sm text-muted">
-                        Your personal AI assistant.
-                    </p>
-                </div>
-                
-                <div style="grid-column: span 2;">
-                    <p class="body-sm" style="font-weight: 600; margin-bottom: 16px;">Product</p>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-                        <li><a href="#features" class="body-sm nav-link">Features</a></li>
-                        <li><a href="#pricing" class="body-sm nav-link">Pricing</a></li>
-                    </ul>
-                </div>
-                
-                <div style="grid-column: span 2;">
-                    <p class="body-sm" style="font-weight: 600; margin-bottom: 16px;">Company</p>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-                        <li><a href="#" class="body-sm nav-link">About</a></li>
-                        <li><a href="#" class="body-sm nav-link">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div style="grid-column: span 2;">
-                    <p class="body-sm" style="font-weight: 600; margin-bottom: 16px;">Legal</p>
-                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
-                        <li><a href="#" class="body-sm nav-link">Privacy</a></li>
-                        <li><a href="#" class="body-sm nav-link">Terms</a></li>
-                    </ul>
-                </div>
-                
-                <div style="grid-column: span 3;">
-                    <p class="body-sm" style="font-weight: 600; margin-bottom: 16px;">Connect</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="nav-link">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                        <a href="#" class="nav-link">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-12 gap-6">
+            <div class="col-span-12 md:col-span-3">
+                <a href="#" class="flex items-center gap-2 no-underline mb-4">
+                    <span class="text-2xl font-bold text-swiss-red">E</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                </a>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>
             </div>
             
-            <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center;">
-                <p class="body-sm text-muted">
-                    &copy; 2026 Elara AI. All rights reserved.
-                </p>
+            <div class="col-span-6 md:col-span-2">
+                <p class="text-sm font-semibold mb-4">Product</p>
+                <ul class="space-y-3">
+                    <li><a href="#features" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Features</a></li>
+                    <li><a href="#pricing" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Pricing</a></li>
+                </ul>
             </div>
+            
+            <div class="col-span-6 md:col-span-2">
+                <p class="text-sm font-semibold mb-4">Company</p>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">About</a></li>
+                    <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-span-6 md:col-span-2">
+                <p class="text-sm font-semibold mb-4">Legal</p>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Privacy</a></li>
+                    <li><a href="#" class="text-sm text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Terms</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-span-12 md:col-span-3">
+                <p class="text-sm font-semibold mb-4">Connect</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">&copy; 2026 Elara AI. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        function initTheme() {
-            const root = document.documentElement;
+        // Theme initialization using Tailwind's 'class' dark mode
+        (function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
-            root.setAttribute('data-theme', savedTheme);
-        }
-        initTheme();
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
 
+        // Accordion toggle
         function toggleAccordion(button) {
             const content = button.nextElementSibling;
-            const icon = button.querySelector('.accordion-icon');
-            content.classList.toggle('open');
-            icon.classList.toggle('open');
+            const icon = button.querySelector('svg');
+            const isOpen = content.classList.contains('max-h-40');
+            
+            // Close all other open accordion items if desired (optional)
+            // For now, independent toggles
+            if (isOpen) {
+                content.classList.remove('max-h-40');
+                content.style.maxHeight = null;
+                icon.classList.remove('rotate-45');
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.classList.add('max-h-40'); // dummy class for tracking
+                icon.classList.add('rotate-45');
+            }
         }
 
-        function initFadeIn() {
+        // Scroll-triggered fade-in animations
+        (function initFadeIn() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('!opacity-100', '!translate-y-0');
+                        observer.unobserve(entry.target);
                     }
                 });
             }, {
@@ -845,11 +591,10 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 rootMargin: '0px 0px -50px 0px'
             });
 
-            document.querySelectorAll('.fade-in').forEach(el => {
+            document.querySelectorAll('[data-animate]').forEach(el => {
                 observer.observe(el);
             });
-        }
-        initFadeIn();
+        })();
     </script>
 </body>
 </html>
