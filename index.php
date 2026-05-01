@@ -100,7 +100,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </nav>
 
     <!-- Hero Section -->
-    <section style="background-image: linear-gradient(<?php echo ($theme == 'dark' ? "rgba(3,7,18,0.6), rgba(3,7,18,0.6)" : "rgba(255,255,255,0.12), rgba(255,255,255,0.12)"); ?>), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section style="background-image: linear-gradient(<?php echo ($theme == 'dark' ? "rgba(3,7,18,0.85), rgba(3,7,18,0.85)" : "rgba(0,0,0,0.4), rgba(0,0,0,0.4)"); ?>), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center bg-cover bg-center relative">
             <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
@@ -152,7 +152,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
 
     <!-- Features Section -->
     <section id="features" class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -236,7 +236,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-28 max-w-7xl mx-auto px-6">
+    <section id="how-it-works" class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -272,7 +272,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
 
     <!-- Testimonials Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -323,7 +323,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-28 max-w-7xl mx-auto px-6">
+    <section id="pricing" class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -409,7 +409,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
 
     <!-- FAQ Section -->
     <section id="faq" class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -477,7 +477,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- CTA Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
             <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
@@ -502,7 +502,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="#" class="flex items-center gap-2 no-underline mb-4">
