@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= csrf_token() ?>">
     <title>Chat — Elara AI</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,410 +15,830 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'sans': ['"DM Sans"', 'system-ui', 'sans-serif'],
+                        'mono': ['"DM Mono"', 'monospace'],
                     },
                     colors: {
-                        'swiss-red': '#FF3B30',
+                        'accent': '#FF3B30',
                     }
                 }
             }
         }
     </script>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF3B30'/><text x='50' y='65' font-size='50' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='white'>E</text></svg>">
-    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23FF3B30'/><text x='50' y='68' font-size='54' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'>E</text></svg>">
+
     <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        :root {
+            --accent: #FF3B30;
+            --accent-hover: #e0362b;
+            --accent-glow: rgba(255,59,48,0.18);
+            --sidebar-w: 260px;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 999px; }
+        .dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); }
+
+        /* ─── Base ─── */
         html { scroll-behavior: smooth; }
-        
-        .msg-bubble { white-space: pre-wrap; }
-        .msg-bubble pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 0.5rem 0; }
-        .msg-bubble code { background: #e2e8f0; color: #0f172a; padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-family: monospace; }
-        .dark .msg-bubble code { background: #334155; color: #f1f5f9; }
-        .msg-bubble pre code { background: transparent; padding: 0; color: inherit; }
-        
-        .typing-dots { display: flex; gap: 4px; padding: 8px 4px; }
+        body { font-family: 'DM Sans', sans-serif; }
+
+        /* ─── Sidebar ─── */
+        #sidebar {
+            width: var(--sidebar-w);
+            background: #f9f9f8;
+            border-right: 1px solid #ebebea;
+            display: flex;
+            flex-direction: column;
+            transition: transform .25s ease;
+        }
+        .dark #sidebar {
+            background: #1a1a1a;
+            border-right-color: #2a2a2a;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 18px 16px 12px;
+        }
+        .logo-mark {
+            width: 30px; height: 30px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 17px; color: white; flex-shrink: 0;
+        }
+        .logo-text { font-weight: 700; font-size: 15px; letter-spacing: -.3px; }
+
+        .new-chat-btn {
+            margin: 4px 10px 10px;
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 12px;
+            background: transparent;
+            border: 1px solid #e2e2e0;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #333;
+            transition: background .15s, border-color .15s;
+            width: calc(100% - 20px);
+        }
+        .new-chat-btn:hover { background: #f0f0ef; border-color: #d4d4d2; }
+        .dark .new-chat-btn { color: #e8e8e6; border-color: #2e2e2e; }
+        .dark .new-chat-btn:hover { background: #242424; border-color: #3a3a3a; }
+
+        .search-wrap {
+            padding: 0 10px 8px;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 7px 10px 7px 32px;
+            background: #f0f0ef;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #333;
+            outline: none;
+            transition: border-color .15s, background .15s;
+        }
+        .search-wrap input:focus { background: white; border-color: #d4d4d2; }
+        .dark .search-wrap input { background: #252525; color: #e0e0de; }
+        .dark .search-wrap input:focus { background: #2a2a2a; border-color: #3a3a3a; }
+        .search-wrap svg { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #999; pointer-events: none; }
+        .search-wrap { position: relative; }
+
+        .conv-section-label {
+            padding: 8px 16px 4px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+        .dark .conv-section-label { color: #555; }
+
+        #conversation-list { list-style: none; padding: 0 6px; margin: 0; }
+        #conversation-list li {
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 13.5px;
+            cursor: pointer;
+            color: #444;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: background .12s;
+            margin-bottom: 1px;
+        }
+        #conversation-list li:hover { background: #ededed; }
+        #conversation-list li.active { background: #e8e8e6; font-weight: 500; color: #111; }
+        .dark #conversation-list li { color: #bbb; }
+        .dark #conversation-list li:hover { background: #252525; }
+        .dark #conversation-list li.active { background: #2a2a2a; color: #eee; }
+
+        /* ─── Sidebar footer ─── */
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 12px 10px;
+            border-top: 1px solid #ebebea;
+        }
+        .dark .sidebar-footer { border-top-color: #2a2a2a; }
+        .sidebar-user {
+            display: flex; align-items: center; gap: 9px;
+            padding: 7px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .12s;
+            position: relative;
+        }
+        .sidebar-user:hover { background: #ededed; }
+        .dark .sidebar-user:hover { background: #252525; }
+        .sidebar-user img { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; }
+        .sidebar-user-info { flex: 1; min-width: 0; }
+        .sidebar-user-name { font-size: 13px; font-weight: 500; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .dark .sidebar-user-name { color: #ddd; }
+
+        /* ─── Main area ─── */
+        #main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #fff;
+        }
+        .dark #main { background: #141414; }
+
+        /* ─── Topbar (mobile only) ─── */
+        #topbar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 52px;
+            border-bottom: 1px solid #ebebea;
+            flex-shrink: 0;
+        }
+        .dark #topbar { border-bottom-color: #2a2a2a; }
+        @media (max-width: 767px) {
+            #sidebar { position: fixed; top: 0; left: 0; height: 100%; z-index: 60; transform: translateX(-100%); }
+            #sidebar.open { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,.12); }
+            #topbar { display: flex; }
+            .overlay { display: block; }
+        }
+
+        #overlay {
+            display: none;
+            position: fixed; inset: 0; z-index: 55;
+            background: rgba(0,0,0,.35);
+        }
+        #overlay.visible { display: block; }
+
+        /* ─── Welcome ─── */
+        #welcome-screen {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .welcome-heading {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 700;
+            letter-spacing: -.5px;
+            color: #111;
+            text-align: center;
+            margin: 0 0 8px;
+        }
+        .dark .welcome-heading { color: #f0f0ee; }
+        .welcome-sub {
+            font-size: 15px;
+            color: #888;
+            text-align: center;
+            margin: 0 0 36px;
+        }
+
+        /* ─── Suggestion chips ─── */
+        .chip-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 560px;
+            margin-bottom: 24px;
+        }
+        @media (min-width: 480px) { .chip-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .chip-card {
+            background: #fafaf9;
+            border: 1px solid #e8e8e6;
+            border-radius: 12px;
+            padding: 14px 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color .15s, box-shadow .15s, transform .15s;
+        }
+        .chip-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            transform: translateY(-1px);
+        }
+        .dark .chip-card { background: #1e1e1e; border-color: #2a2a2a; }
+        .dark .chip-card:hover { border-color: #3a3a3a; box-shadow: 0 2px 16px rgba(0,0,0,.3); }
+
+        .chip-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 10px;
+        }
+        .chip-title { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 2px; }
+        .dark .chip-title { color: #e0e0de; }
+        .chip-desc { font-size: 12px; color: #999; }
+
+        .prompt-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 580px;
+        }
+        .prompt-pill {
+            padding: 7px 14px;
+            background: #f5f5f4;
+            border: 1px solid #e8e8e6;
+            border-radius: 999px;
+            font-size: 13px;
+            color: #555;
+            cursor: pointer;
+            transition: background .12s, border-color .12s;
+        }
+        .prompt-pill:hover { background: #eeeeec; border-color: #d4d4d2; color: #222; }
+        .dark .prompt-pill { background: #1e1e1e; border-color: #2a2a2a; color: #aaa; }
+        .dark .prompt-pill:hover { background: #262626; border-color: #3a3a3a; color: #ddd; }
+
+        /* ─── Chat messages ─── */
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 0;
+            display: none;
+            flex-direction: column;
+        }
+        #chat-messages.visible { display: flex; }
+
+        .msg-row {
+            display: flex;
+            padding: 6px 0;
+            max-width: 720px;
+            margin: 0 auto;
+            width: 100%;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+        .msg-row.user { justify-content: flex-end; }
+        .msg-row.assistant { justify-content: flex-start; }
+
+        .msg-bubble {
+            max-width: 78%;
+            padding: 10px 14px;
+            font-size: 14.5px;
+            line-height: 1.65;
+            white-space: pre-wrap;
+            border-radius: 16px;
+        }
+        .msg-bubble.user {
+            background: var(--accent);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .msg-bubble.assistant {
+            background: #f4f4f3;
+            color: #1a1a1a;
+            border-bottom-left-radius: 4px;
+        }
+        .dark .msg-bubble.assistant { background: #242424; color: #e8e8e6; }
+
+        .msg-bubble pre {
+            background: #1e2130;
+            color: #e2e8f0;
+            padding: 12px 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 8px 0;
+            font-family: 'DM Mono', monospace;
+            font-size: 13px;
+        }
+        .msg-bubble code {
+            background: rgba(0,0,0,.08);
+            color: inherit;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-family: 'DM Mono', monospace;
+            font-size: .9em;
+        }
+        .msg-bubble.user code { background: rgba(255,255,255,.2); }
+        .msg-bubble pre code { background: transparent; padding: 0; }
+
+        /* ─── Typing ─── */
+        .typing-dots { display: flex; gap: 4px; padding: 4px 2px; align-items: center; }
         .typing-dots span {
             width: 6px; height: 6px;
             border-radius: 50%;
-            background: #9ca3af;
-            animation: bounce 1.2s infinite;
+            background: #aaa;
+            animation: tdot 1.2s infinite ease-in-out;
         }
-        .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        .typing-dots span:nth-child(2) { animation-delay: .2s; }
+        .typing-dots span:nth-child(3) { animation-delay: .4s; }
+        @keyframes tdot {
+            0%, 80%, 100% { transform: scale(1); opacity: .5; }
+            40% { transform: scale(1.3); opacity: 1; }
+        }
 
-        @keyframes bounce {
-            0%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-5px); }
+        /* ─── Chat header strip ─── */
+        #chat-header {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            border-bottom: 1px solid #ebebea;
+            flex-shrink: 0;
         }
-        
-        [data-animate].opacity-0 { opacity: 0; transform: translateY(20px); }
-        [data-animate].transition-all { transition: all 0.7s ease-out; }
-        [data-animate].\!opacity-100 { opacity: 1 !important; }
-        [data-animate].\!translate-y-0 { transform: translateY(0) !important; }
+        #chat-header.visible { display: flex; }
+        .dark #chat-header { border-bottom-color: #2a2a2a; }
+        #chat-title { font-size: 14px; font-weight: 600; color: #222; }
+        .dark #chat-title { color: #ddd; }
+        #chat-date { font-size: 12px; color: #aaa; margin-top: 1px; }
+
+        .header-btn {
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid #e0e0de;
+            background: transparent;
+            cursor: pointer;
+            color: #555;
+            transition: background .12s, border-color .12s;
+        }
+        .header-btn:hover { background: #f4f4f3; border-color: #ccc; }
+        .header-btn.danger { color: #dc2626; border-color: #fecaca; }
+        .header-btn.danger:hover { background: #fef2f2; }
+        .dark .header-btn { border-color: #2e2e2e; color: #999; }
+        .dark .header-btn:hover { background: #222; }
+        .dark .header-btn.danger { border-color: #7f1d1d; color: #f87171; }
+        .dark .header-btn.danger:hover { background: #1c1010; }
+
+        /* ─── Input area ─── */
+        #input-area {
+            padding: 14px 24px 18px;
+            flex-shrink: 0;
+        }
+
+        .input-shell {
+            max-width: 720px;
+            margin: 0 auto;
+            background: #f5f5f4;
+            border: 1.5px solid #e4e4e2;
+            border-radius: 16px;
+            transition: border-color .15s, box-shadow .15s;
+            overflow: hidden;
+        }
+        .dark .input-shell { background: #1e1e1e; border-color: #2e2e2e; }
+        .input-shell:focus-within {
+            border-color: #c8c8c6;
+            box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+        }
+        .dark .input-shell:focus-within {
+            border-color: #3e3e3e;
+            box-shadow: 0 0 0 3px rgba(255,255,255,.04);
+        }
+
+        #message-input {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            resize: none;
+            padding: 14px 16px 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14.5px;
+            color: #1a1a1a;
+            line-height: 1.55;
+            max-height: 180px;
+        }
+        .dark #message-input { color: #e8e8e6; }
+        #message-input::placeholder { color: #bbb; }
+        .dark #message-input::placeholder { color: #555; }
+
+        .input-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 10px 10px;
+        }
+
+        .toolbar-left { display: flex; gap: 4px; align-items: center; }
+
+        .tool-btn {
+            padding: 5px 8px;
+            border-radius: 7px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: #999;
+            transition: background .12s, color .12s;
+            display: flex; align-items: center; gap: 5px;
+            font-size: 12.5px; font-weight: 500;
+        }
+        .tool-btn:hover { background: #ebebea; color: #555; }
+        .dark .tool-btn:hover { background: #2a2a2a; color: #aaa; }
+
+        .model-chip {
+            padding: 4px 10px;
+            border-radius: 7px;
+            border: 1px solid #e0e0de;
+            background: transparent;
+            cursor: pointer;
+            color: #777;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex; align-items: center; gap: 4px;
+            transition: background .12s, border-color .12s;
+        }
+        .model-chip:hover { background: #ebebea; border-color: #d0d0ce; }
+        .dark .model-chip { border-color: #2e2e2e; color: #666; }
+        .dark .model-chip:hover { background: #2a2a2a; }
+
+        #send-btn {
+            width: 34px; height: 34px;
+            border-radius: 9px;
+            background: var(--accent);
+            border: none;
+            cursor: pointer;
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            transition: background .15s, transform .15s, box-shadow .15s;
+            flex-shrink: 0;
+        }
+        #send-btn:hover { background: var(--accent-hover); transform: scale(1.05); box-shadow: 0 2px 12px var(--accent-glow); }
+        #send-btn:disabled { background: #d4d4d2; cursor: not-allowed; transform: none; box-shadow: none; }
+        .dark #send-btn:disabled { background: #333; }
+
+        .input-hint { text-align: center; font-size: 11.5px; color: #c0c0be; margin-top: 8px; max-width: 720px; margin-left: auto; margin-right: auto; }
+        .dark .input-hint { color: #444; }
+
+        /* ─── User dropdown ─── */
+        #user-dropdown {
+            position: absolute;
+            bottom: calc(100% + 6px); left: 0; right: 0;
+            background: white;
+            border: 1px solid #e8e8e6;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.1);
+            overflow: hidden;
+            z-index: 100;
+        }
+        .dark #user-dropdown { background: #1e1e1e; border-color: #2e2e2e; box-shadow: 0 8px 28px rgba(0,0,0,.4); }
+        .dropdown-item {
+            display: block; padding: 9px 14px;
+            font-size: 13px; color: #444;
+            text-decoration: none;
+            transition: background .1s;
+        }
+        .dropdown-item:hover { background: #f4f4f3; }
+        .dark .dropdown-item { color: #bbb; }
+        .dark .dropdown-item:hover { background: #252525; }
+        .dropdown-item.danger { color: #dc2626; }
+        .dark .dropdown-item.danger { color: #f87171; }
+        .dropdown-divider { height: 1px; background: #ebebea; margin: 3px 0; }
+        .dark .dropdown-divider { background: #2a2a2a; }
+
+        /* ─── Fade-in animations ─── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .5s ease, transform .5s ease;
+        }
+        .fade-up.in { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50 transition-colors duration-300 font-sans h-screen overflow-hidden">
+<body class="bg-white dark:bg-[#141414] text-gray-900 dark:text-gray-50 font-sans h-screen overflow-hidden flex">
 
-    <!-- Top Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-14">
-        <div class="flex items-center justify-between h-full px-4">
-            <a href="/" class="flex items-center gap-2 no-underline flex-shrink-0">
-                <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50 hidden sm:inline">Elara</span>
-            </a>
-            
-            <div class="flex items-center gap-2 mx-4 flex-1 justify-center">
-                <button onclick="newChat()" class="flex items-center gap-2 px-4 py-2 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-lg hover:shadow-swiss-red/25 transition-all text-sm">
-                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M12 5v14M5 12h14"/>
-                    </svg>
-                    New Chat
-                </button>
-            </div>
-            
-            <div class="flex items-center gap-3 flex-shrink-0">
-                <button onclick="toggleTheme()" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" title="Toggle theme">
-                    <svg id="theme-icon-light" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                    <svg id="theme-icon-dark" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="5"/>
-                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                </button>
-                <div class="relative" x-data="{ open: false }">
-                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="flex items-center gap-2">
-                        <?php
-                        $user_avatar = get_user_avatar($pdo, $_SESSION['user_id']);
-                        $user_name = get_user_name($pdo, $_SESSION['user_id']);
-                        ?>
-                        <img src="<?= h($user_avatar) ?>" alt="Avatar" class="w-8 h-8 rounded-full">
-                    </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 hidden z-50 border border-gray-200 dark:border-gray-700">
-                        <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                            <p class="font-semibold text-sm"><?= h($user_name) ?></p>
-                        </div>
-                        <a href="/app/profile.php" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">Profile</a>
-                        <a href="/app/settings.php" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">Settings</a>
-                        <div class="border-t border-gray-200 dark:border-gray-700 my-1"></div>
-                        <a href="/auth/logout.php" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
-                    </div>
+    <!-- Sidebar -->
+    <aside id="sidebar">
+        <!-- Logo -->
+        <div class="sidebar-logo">
+            <div class="logo-mark">E</div>
+            <span class="logo-text dark:text-gray-100">Elara</span>
+        </div>
+
+        <!-- New Chat -->
+        <button onclick="newChat()" class="new-chat-btn">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            New conversation
+        </button>
+
+        <!-- Search -->
+        <div class="search-wrap">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="conv-search" placeholder="Search conversations…" oninput="filterConversations()">
+        </div>
+
+        <!-- Conversation List -->
+        <div style="flex:1;overflow-y:auto;">
+            <p class="conv-section-label">Recent</p>
+            <ul id="conversation-list">
+                <li style="padding:8px 10px;font-size:13px;color:#aaa;">Loading…</li>
+            </ul>
+        </div>
+
+        <!-- User Footer -->
+        <div class="sidebar-footer">
+            <div class="sidebar-user" onclick="toggleUserMenu()" id="sidebar-user-btn">
+                <?php
+                    $user_avatar = get_user_avatar($pdo, $_SESSION['user_id']);
+                    $user_name = get_user_name($pdo, $_SESSION['user_id']);
+                ?>
+                <img src="<?= h($user_avatar) ?>" alt="Avatar">
+                <div class="sidebar-user-info">
+                    <div class="sidebar-user-name"><?= h($user_name) ?></div>
                 </div>
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:#aaa;flex-shrink:0;"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+
+                <!-- Dropdown -->
+                <div id="user-dropdown" class="hidden">
+                    <div style="padding:9px 14px 6px;border-bottom:1px solid #ebebea;" class="dark:border-[#2a2a2a]">
+                        <div style="font-size:12px;color:#aaa;">Signed in as</div>
+                        <div style="font-size:13px;font-weight:600;color:#222;" class="dark:text-gray-200"><?= h($user_name) ?></div>
+                    </div>
+                    <a href="/app/profile.php" class="dropdown-item">Profile</a>
+                    <a href="/app/settings.php" class="dropdown-item">Settings</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="/auth/logout.php" class="dropdown-item danger">Log out</a>
+                </div>
+            </div>
+
+            <!-- Theme toggle -->
+            <button onclick="toggleTheme()" style="width:100%;margin-top:4px;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;background:transparent;border:none;cursor:pointer;font-size:13px;color:#888;transition:background .12s;" onmouseover="this.style.background='#ededed'" onmouseout="this.style.background='transparent'">
+                <svg id="theme-icon-light" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg id="theme-icon-dark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <span id="theme-label">Dark mode</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Main -->
+    <main id="main">
+
+        <!-- Mobile topbar -->
+        <div id="topbar">
+            <button onclick="openSidebar()" style="padding:6px;background:transparent;border:none;cursor:pointer;color:#666;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <div style="display:flex;align-items:center;gap:8px;">
+                <div class="logo-mark" style="width:26px;height:26px;font-size:15px;">E</div>
+                <span style="font-weight:700;font-size:15px;" class="dark:text-gray-100">Elara</span>
+            </div>
+            <button onclick="newChat()" style="padding:6px 12px;background:var(--accent);color:white;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">New</button>
+        </div>
+
+        <!-- Chat header strip -->
+        <div id="chat-header">
+            <div>
+                <div id="chat-title">Conversation</div>
+                <div id="chat-date"></div>
+            </div>
+            <div style="display:flex;gap:8px;">
+                <button onclick="shareChat()" class="header-btn">Share</button>
+                <button onclick="deleteChat()" class="header-btn danger">Delete</button>
             </div>
         </div>
-    </nav>
 
-    <div class="flex h-screen pt-14">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex-shrink-0 hidden md:flex flex-col">
-            <div class="p-4">
-                <div class="relative">
-                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                    </svg>
-                    <input type="text" id="conv-search" placeholder="Search..." 
-                           class="w-full pl-10 pr-3 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:outline-none focus:border-swiss-red"
-                           oninput="filterConversations()">
-                </div>
+        <!-- Welcome screen -->
+        <div id="welcome-screen">
+            <div class="fade-up" style="text-align:center;margin-bottom:28px;">
+                <div style="width:52px;height:52px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;font-weight:700;color:white;">E</div>
+                <h1 class="welcome-heading">How can I help?</h1>
+                <p class="welcome-sub">Ask me anything — I'm ready when you are.</p>
             </div>
-            
-            <div class="flex-1 overflow-y-auto px-2">
-                <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider px-2 mb-2">Recent</p>
-                <ul id="conversation-list" class="space-y-1">
-                    <li class="px-3 py-2 text-sm text-gray-400">Loading...</li>
-                </ul>
-            </div>
-        </aside>
 
-        <!-- Main Chat Area -->
-        <main class="flex-1 flex flex-col bg-white dark:bg-gray-800 overflow-hidden">
-            
-            <!-- Welcome Screen -->
-            <div id="welcome-screen" class="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto">
-                <div class="text-center mb-12 max-w-xl opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="mb-4">
-                        <span class="text-6xl font-bold text-swiss-red">E</span>
+            <!-- Suggestion cards -->
+            <div class="chip-grid fade-up" style="transition-delay:.08s;">
+                <button onclick="insertPrompt('Help me write something')" class="chip-card">
+                    <div class="chip-icon" style="background:#f0fdf4;">
+                        <svg width="16" height="16" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
                     </div>
-                    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Good to see you</h1>
-                    <p class="text-gray-500 dark:text-gray-400 text-lg">Your personal AI assistant — ready for any task you can imagine.</p>
-                </div>
-
-                <!-- Capability Cards -->
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <button onclick="insertPrompt('Help me write something')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Writing</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Drafts, edits & creative work</p>
-                    </button>
-                    
-                    <button onclick="insertPrompt('Help me with programming')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24">
-                                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Programming</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Code, debug & review</p>
-                    </button>
-                    
-                    <button onclick="insertPrompt('Help me with research')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24">
-                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Research</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Analysis & deep dives</p>
-                    </button>
-                    
-                    <button onclick="insertPrompt('Help me learn something new')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#9333ea" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M22 10v6M2 10l10-5 10 5-10 5zM6 12v5c3 3 9 3 12 0v-5"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Education</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Learn & understand</p>
-                    </button>
-                    
-                    <button onclick="insertPrompt('Help me analyze data')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-rose-50 dark:bg-rose-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#e11d48" stroke-width="2" viewBox="0 0 24 24">
-                                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Analysis</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Data & insights</p>
-                    </button>
-                    
-                    <button onclick="insertPrompt('Help me brainstorm')" class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all text-left">
-                        <div class="w-10 h-10 rounded-lg bg-sky-50 dark:bg-sky-900/30 flex items-center justify-center mb-3">
-                            <svg class="w-5 h-5" fill="none" stroke="#0ea5e9" stroke-width="2" viewBox="0 0 24 24">
-                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold mb-1">Brainstorm</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Ideas & creativity</p>
-                    </button>
-                </div>
-
-                <!-- Suggestions -->
-                <div class="flex flex-wrap gap-3 justify-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <button onclick="insertPrompt('Help me write a cover letter')" class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
-                        Help me write a cover letter
-                    </button>
-                    <button onclick="insertPrompt('Give me a challenging puzzle')" class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
-                        Give me a puzzle
-                    </button>
-                    <button onclick="insertPrompt('Explain this concept')" class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
-                        Explain a concept
-                    </button>
-                    <button onclick="insertPrompt('Imagine a creative scenario')" class="px-4 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
-                        Imagine a scenario
-                    </button>
-                </div>
+                    <div class="chip-title">Write</div>
+                    <div class="chip-desc">Drafts, edits & creative work</div>
+                </button>
+                <button onclick="insertPrompt('Help me with programming')" class="chip-card">
+                    <div class="chip-icon" style="background:#eff6ff;">
+                        <svg width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    </div>
+                    <div class="chip-title">Code</div>
+                    <div class="chip-desc">Debug, review & build</div>
+                </button>
+                <button onclick="insertPrompt('Help me with research')" class="chip-card">
+                    <div class="chip-icon" style="background:#fffbeb;">
+                        <svg width="16" height="16" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    </div>
+                    <div class="chip-title">Research</div>
+                    <div class="chip-desc">Explore & analyze</div>
+                </button>
+                <button onclick="insertPrompt('Help me brainstorm ideas')" class="chip-card">
+                    <div class="chip-icon" style="background:#faf5ff;">
+                        <svg width="16" height="16" fill="none" stroke="#9333ea" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="chip-title">Brainstorm</div>
+                    <div class="chip-desc">Ideas & creativity</div>
+                </button>
             </div>
 
-            <!-- Chat Messages (hidden initially) -->
-            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 hidden flex-col gap-4"></div>
-
-            <!-- Chat Header (hidden initially) -->
-            <div id="chat-header" class="hidden border-t border-b border-gray-200 dark:border-gray-700 px-6 py-3 flex items-center justify-between">
-                <div>
-                    <h2 id="chat-title" class="font-semibold">Conversation</h2>
-                    <p id="chat-date" class="text-xs text-gray-500"></p>
-                </div>
-                <div class="flex gap-2">
-                    <button onclick="shareChat()" class="px-3 py-1.5 border border-gray-200 dark:border-gray-600 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
-                        Share
-                    </button>
-                    <button onclick="deleteChat()" class="px-3 py-1.5 border border-red-200 dark:border-red-800 text-red-600 rounded-lg text-sm hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-                        Delete
-                    </button>
-                </div>
+            <!-- Prompt pills -->
+            <div class="prompt-pills fade-up" style="transition-delay:.16s;">
+                <button onclick="insertPrompt('Help me write a cover letter')" class="prompt-pill">Cover letter</button>
+                <button onclick="insertPrompt('Give me a challenging puzzle')" class="prompt-pill">Puzzle</button>
+                <button onclick="insertPrompt('Explain a complex concept simply')" class="prompt-pill">Explain something</button>
+                <button onclick="insertPrompt('Help me analyze this data')" class="prompt-pill">Analyze data</button>
+                <button onclick="insertPrompt('Write a short story')" class="prompt-pill">Short story</button>
             </div>
+        </div>
 
-            <!-- Input Area -->
-            <div class="p-4 bg-white dark:bg-gray-800">
-                <div class="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-xl p-4 transition-colors">
-                    <textarea
-                        id="message-input"
-                        class="w-full bg-transparent border-none outline-none resize-none text-gray-900 dark:text-gray-50 placeholder-gray-400"
-                        placeholder="How can I help you today?"
-                        rows="1"
-                        oninput="autoResize(this); syncToStorage()"
-                        onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendMessage(); }"
-                    ></textarea>
-                    <div class="flex items-center justify-between mt-3">
-                        <div class="flex gap-2">
-                            <button class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" title="Attach file">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
-                                </svg>
-                            </button>
-                            <button class="px-3 py-1.5 border border-gray-200 dark:border-gray-600 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors" title="Switch model">
-                                Elara 4.0
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <polyline points="6 9 12 15 18 9"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <button onclick="sendMessage()" id="send-btn" class="flex items-center gap-2 px-4 py-2 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-lg hover:shadow-swiss-red/25 transition-all">
-                            Send
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <line x1="22" y1="2" x2="11" y2="13"/>
-                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-                            </svg>
+        <!-- Chat messages -->
+        <div id="chat-messages"></div>
+
+        <!-- Input area -->
+        <div id="input-area">
+            <div class="input-shell">
+                <textarea
+                    id="message-input"
+                    placeholder="Message Elara…"
+                    rows="1"
+                    oninput="autoResize(this)"
+                    onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
+                ></textarea>
+                <div class="input-toolbar">
+                    <div class="toolbar-left">
+                        <button class="tool-btn" title="Attach file">
+                            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                        </button>
+                        <button class="model-chip" title="Switch model">
+                            Elara 4.0
+                            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                     </div>
+                    <button onclick="sendMessage()" id="send-btn" title="Send">
+                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
                 </div>
-                <p class="text-xs text-gray-400 text-center mt-3">Elara can make mistakes. Please verify important information.</p>
             </div>
-        </main>
-    </div>
+            <p class="input-hint">Elara can make mistakes. Verify important information.</p>
+        </div>
+    </main>
 
     <script>
-        // Theme
+        /* ─── Theme ─── */
         const root = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'light';
         root.classList.add(savedTheme);
-        updateThemeIcon(savedTheme);
+        applyThemeIcon(savedTheme);
 
         function toggleTheme() {
-            const current = root.classList.contains('dark') ? 'dark' : 'light';
-            const next = current === 'dark' ? 'light' : 'dark';
-            root.classList.remove(current);
-            root.classList.add(next);
+            const cur = root.classList.contains('dark') ? 'dark' : 'light';
+            const next = cur === 'dark' ? 'light' : 'dark';
+            root.classList.replace(cur, next);
             localStorage.setItem('theme', next);
-            updateThemeIcon(next);
+            applyThemeIcon(next);
+        }
+        function applyThemeIcon(t) {
+            document.getElementById('theme-icon-light').classList.toggle('hidden', t === 'dark');
+            document.getElementById('theme-icon-dark').classList.toggle('hidden', t !== 'dark');
+            const lbl = document.getElementById('theme-label');
+            if (lbl) lbl.textContent = t === 'dark' ? 'Light mode' : 'Dark mode';
         }
 
-        function updateThemeIcon(theme) {
-            document.getElementById('theme-icon-light').classList.toggle('hidden', theme === 'dark');
-            document.getElementById('theme-icon-dark').classList.toggle('hidden', theme === 'light');
+        /* ─── Textarea auto-resize ─── */
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 180) + 'px';
         }
 
-        // Auto-resize
-        function autoResize(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = Math.min(textarea.scrollHeight, 160) + 'px';
-        }
-
-        // Init animations
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('!opacity-100', '!translate-y-0');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
+        /* ─── Fade-up init ─── */
+        requestAnimationFrame(() => {
+            const items = document.querySelectorAll('.fade-up');
+            items.forEach((el, i) => {
+                setTimeout(() => el.classList.add('in'), 80 + i * 80);
+            });
         });
 
-        // Prompt helper
-        function insertPrompt(text) {
-            const textarea = document.getElementById('message-input');
-            textarea.value = text;
-            textarea.focus();
-            autoResize(textarea);
-            showChatMode();
+        /* ─── Mobile sidebar ─── */
+        function openSidebar() {
+            document.getElementById('sidebar').classList.add('open');
+            document.getElementById('overlay').classList.add('visible');
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('visible');
         }
 
-        // Conversation state
+        /* ─── User menu ─── */
+        function toggleUserMenu() {
+            document.getElementById('user-dropdown').classList.toggle('hidden');
+        }
+        document.addEventListener('click', e => {
+            const btn = document.getElementById('sidebar-user-btn');
+            const menu = document.getElementById('user-dropdown');
+            if (!btn.contains(e.target)) menu.classList.add('hidden');
+        });
+
+        /* ─── Insert prompt ─── */
+        function insertPrompt(text) {
+            const ta = document.getElementById('message-input');
+            ta.value = text;
+            ta.focus();
+            autoResize(ta);
+        }
+
+        /* ─── Conversation state ─── */
         const conversationId = <?= isset($_GET['c']) ? (int)$_GET['c'] : 0 ?>;
         let conversations = [];
 
         function loadConversations() {
             fetch('history.php?action=list')
                 .then(r => r.json())
-                .then(data => { 
-                    conversations = data; 
-                    renderConversations(); 
-                })
-                .catch(err => console.error(err));
+                .then(data => { conversations = data; renderConversations(); })
+                .catch(console.error);
         }
 
         function renderConversations() {
-            const searchTerm = document.getElementById('conv-search')?.value.toLowerCase() || '';
-            const filtered = conversations.filter(c => c.title.toLowerCase().includes(searchTerm));
+            const term = (document.getElementById('conv-search')?.value || '').toLowerCase();
             const list = document.getElementById('conversation-list');
-
             if (!list) return;
-            
-            if (filtered.length === 0) {
-                list.innerHTML = '<li class="px-3 py-2 text-sm text-gray-400">No conversations yet</li>';
+            const filtered = conversations.filter(c => c.title.toLowerCase().includes(term));
+            if (!filtered.length) {
+                list.innerHTML = '<li style="padding:8px 10px;font-size:13px;color:#aaa;">No conversations</li>';
                 return;
             }
-
             list.innerHTML = filtered.map(c => `
-                <li onclick="openConversation(${c.id})" 
-                    class="px-3 py-2 rounded-lg text-sm cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${c.id == conversationId ? 'bg-gray-200 dark:bg-gray-700 font-medium' : ''} truncate">
+                <li onclick="openConversation(${c.id})"
+                    class="${c.id == conversationId ? 'active' : ''}">
                     ${escapeHtml(c.title)}
-                </li>
-            `).join('');
+                </li>`).join('');
         }
 
-        function filterConversations() {
-            renderConversations();
-        }
+        function filterConversations() { renderConversations(); }
+        function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+        function openConversation(id) { window.location.href = 'index.php?c=' + id; }
+        function newChat() { window.location.href = 'index.php'; }
 
-        function escapeHtml(str) {
-            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-        }
-
-        function openConversation(id) {
-            window.location.href = 'index.php?c=' + id;
-        }
-
-        function newChat() {
-            window.location.href = 'index.php';
-        }
-
-        // Chat mode
+        /* ─── Show chat mode ─── */
         function showChatMode() {
-            document.getElementById('welcome-screen').classList.add('hidden');
-            document.getElementById('chat-messages').classList.remove('hidden');
-            document.getElementById('chat-messages').classList.add('flex');
-            document.getElementById('chat-header').classList.remove('hidden');
-            document.getElementById('message-input').focus();
+            document.getElementById('welcome-screen').style.display = 'none';
+            const msgs = document.getElementById('chat-messages');
+            msgs.classList.add('visible');
+            document.getElementById('chat-header').classList.add('visible');
         }
 
+        /* ─── Load messages ─── */
         function loadMessages() {
             if (!conversationId) return;
             showChatMode();
-
             fetch(`history.php?action=messages&conversation_id=${conversationId}`)
                 .then(r => r.json())
-                .then(messages => {
+                .then(msgs => {
                     const wrap = document.getElementById('chat-messages');
                     wrap.innerHTML = '';
-                    messages.forEach(m => appendMessage(m.role, m.content));
+                    msgs.forEach(m => appendMessage(m.role, m.content));
                 })
-                .catch(err => console.error(err));
+                .catch(console.error);
         }
 
         function appendMessage(role, content) {
             const wrap = document.getElementById('chat-messages');
             const row = document.createElement('div');
-            row.className = role === 'user' ? 'flex justify-end' : 'flex justify-start';
+            row.className = 'msg-row ' + role;
 
             const bubble = document.createElement('div');
-            bubble.className = `max-w-[75%] p-3 rounded-xl ${
-                role === 'user' 
-                    ? 'bg-swiss-red text-white rounded-br-sm' 
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-50 rounded-bl-sm'
-            }`;
+            bubble.className = 'msg-bubble ' + role;
             bubble.innerHTML = content.replace(/\n/g, '<br>');
 
             row.appendChild(bubble);
@@ -429,13 +849,11 @@
         function appendTyping() {
             const wrap = document.getElementById('chat-messages');
             const row = document.createElement('div');
-            row.className = 'flex justify-start';
+            row.className = 'msg-row assistant';
             row.id = 'typing-indicator';
-
             const bubble = document.createElement('div');
-            bubble.className = 'bg-gray-100 dark:bg-gray-700 p-3 rounded-xl rounded-bl-sm';
+            bubble.className = 'msg-bubble assistant';
             bubble.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-
             row.appendChild(bubble);
             wrap.appendChild(row);
             wrap.scrollTop = wrap.scrollHeight;
@@ -446,18 +864,18 @@
             if (el) el.remove();
         }
 
-        // Send message
+        /* ─── Send message ─── */
         function sendMessage() {
-            const textarea = document.getElementById('message-input');
-            const content = textarea.value.trim();
+            const ta = document.getElementById('message-input');
+            const content = ta.value.trim();
             if (!content) return;
 
             if (!conversationId) showChatMode();
 
             appendMessage('user', content);
-            textarea.value = '';
-            autoResize(textarea);
-            textarea.focus();
+            ta.value = '';
+            autoResize(ta);
+            ta.focus();
 
             appendTyping();
             document.getElementById('send-btn').disabled = true;
@@ -493,15 +911,13 @@
             });
         }
 
-        // Share/Delete
+        /* ─── Share / Delete ─── */
         function shareChat() {
             if (!conversationId) { alert('Start a conversation first'); return; }
             window.location.href = 'share.php';
         }
-
         function deleteChat() {
             if (!conversationId || !confirm('Delete this conversation?')) return;
-
             fetch('history.php?action=delete', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -511,22 +927,12 @@
                 })
             })
             .then(r => r.json())
-            .then(data => {
-                if (data.success) window.location.href = 'index.php';
-                else alert(data.error || 'Failed to delete');
-            });
+            .then(d => { if (d.success) window.location.href = 'index.php'; else alert(d.error || 'Failed'); });
         }
 
-        // Sync to localStorage (placeholder for draft preservation)
-        function syncToStorage() {
-            // Can be extended to save drafts
-        }
-
-        // Init
+        /* ─── Init ─── */
         loadConversations();
-        if (conversationId) {
-            loadMessages();
-        }
+        if (conversationId) loadMessages();
     </script>
 </body>
 </html>
