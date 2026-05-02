@@ -117,14 +117,14 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             </div>
             
             <div class="col-span-12">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
+                <h1 class="text-blue-50 text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
                     Think bigger.<br>
                     Create faster.
                 </h1>
             </div>
             
             <div class="col-span-12 max-w-xl">
-                <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
+                <p class="text-lg text-gray-300 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700 bg-transparent" data-animate>
                     Your personal AI assistant powered by advanced AI models. 
                     Chat, create, code, and learn with intelligent conversations 
                     that adapt to your needs.
