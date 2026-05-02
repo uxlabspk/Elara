@@ -85,8 +85,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-36 pb-28 max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-12 gap-6">
+    <section class="hero-section pt-36 pb-28 h-[70vh] min-h-[500px] max-w-7xl mx-auto px-6 flex items-center" style="background-image: linear-gradient(rgba(3,7,18,0.7), rgba(3,7,18,0.7)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Pricing
@@ -94,14 +94,14 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="col-span-12">
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-[1.05] tracking-tight mb-6 text-white opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Simple pricing.<br>
                     No surprises.
                 </h1>
             </div>
             
             <div class="col-span-12 max-w-xl">
-                <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <p class="text-lg text-gray-200 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Choose the plan that fits your needs. Start free and upgrade 
                     when you're ready. No hidden fees, no surprises.
                 </p>
