@@ -100,7 +100,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     </nav>
 
     <!-- Hero Section -->
-    <section style="background-image: linear-gradient(<?php echo ($theme == 'dark' ? "rgba(3,7,18,0.85), rgba(3,7,18,0.85)" : "rgba(0,0,0,0.4), rgba(0,0,0,0.4)"); ?>), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <section style="background-image: linear-gradient(<?php echo ($theme == 'dark' ? "rgba(3,7,18,0.94), rgba(3,7,18,0.94)" : "rgba(0,0,0,0.58), rgba(0,0,0,0.58)"); ?>), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center bg-cover bg-center relative">
             <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
