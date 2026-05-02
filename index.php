@@ -175,8 +175,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Feature Cards -->
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
                         </svg>
                     </div>
@@ -185,8 +185,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <polyline points="16 18 22 12 16 6"/>
                             <polyline points="8 6 2 12 8 18"/>
                         </svg>
@@ -196,8 +196,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="11" cy="11" r="8"/>
                             <path d="m21 21-4.35-4.35"/>
                         </svg>
@@ -207,8 +207,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#9333EA" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                             <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                         </svg>
@@ -218,8 +218,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#E11D48" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <line x1="18" y1="20" x2="18" y2="10"/>
                             <line x1="12" y1="20" x2="12" y2="4"/>
                             <line x1="6" y1="20" x2="6" y2="14"/>
@@ -230,8 +230,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#0EA5E9" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         </svg>
                     </div>
@@ -258,19 +258,19 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">01</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">01</span>
                 <h3 class="text-xl font-semibold mb-3">Ask anything</h3>
                 <p class="text-gray-500 dark:text-gray-400">Type your question or task in natural language. No complicated prompts needed.</p>
             </div>
             
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">02</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">02</span>
                 <h3 class="text-xl font-semibold mb-3">Get instant answers</h3>
                 <p class="text-gray-500 dark:text-gray-400">Receive intelligent responses tailored to your specific needs and context.</p>
             </div>
             
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">03</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">03</span>
                 <h3 class="text-xl font-semibold mb-3">Iterate & refine</h3>
                 <p class="text-gray-500 dark:text-gray-400">Continue the conversation to refine results until you get exactly what you need.</p>
             </div>
@@ -430,7 +430,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             </div>
             
             <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 lg:col-span-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                <div class="col-span-12  opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     <div class="border-b border-gray-200 dark:border-gray-700">
                         <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
                             <span>What is Elara AI?</span>
