@@ -56,7 +56,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
@@ -85,8 +85,9 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section pt-36 pb-28 h-[70vh] min-h-[500px] max-w-7xl mx-auto px-6 flex items-center" style="background-image: linear-gradient(rgba(3,7,18,0.6), rgba(3,7,18,0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <div class="grid grid-cols-12 gap-6 w-full">
+    <section style="background-image: linear-gradient(rgba(3,7,18,0.6), rgba(3,7,18,0.6)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="hero-section pt-36 pb-28 h-screen container mx-auto px-6 flex items-center">
+            <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     About Us
@@ -108,12 +109,12 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 </p>
             </div>
         </div>
-    </section>
+        </div>
     </section>
 
     <!-- Mission Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -145,7 +146,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- Values Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -159,8 +160,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
                 </div>
@@ -169,8 +170,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                         <circle cx="9" cy="7" r="4"/>
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -181,8 +182,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
                     </svg>
                 </div>
@@ -194,7 +195,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Story Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -229,7 +230,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- Team Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -245,39 +246,39 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-400 to-purple-600 mx-auto mb-5"></div>
-                <h3 class="text-xl font-semibold mb-1">Sarah Chen</h3>
-                <p class="text-sm text-swiss-red mb-3">Founder & CEO</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">AI researcher with 10+ years of experience in machine learning.</p>
+                <h3 class="text-xl font-semibold mb-1">Muhammad Naveed</h3>
+                <p class="text-sm text-swiss-red mb-3">Head of Engineering</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Researcher with 5+ years of experience in Software and ML.</p>
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pink-400 to-rose-600 mx-auto mb-5"></div>
-                <h3 class="text-xl font-semibold mb-1">Alex Rodriguez</h3>
-                <p class="text-sm text-swiss-red mb-3">CTO</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Former Google engineer specializing in distributed systems.</p>
+                <h3 class="text-xl font-semibold mb-1">Tayyab Raza</h3>
+                <p class="text-sm text-swiss-red mb-3">Head of Marketing</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Streamlining the process of market analysis with his statistical skills.</p>
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <div class="w-24 h-24 rounded-full bg-gradient-to-br from-sky-400 to-cyan-500 mx-auto mb-5"></div>
-                <h3 class="text-xl font-semibold mb-1">Emily Watson</h3>
+                <h3 class="text-xl font-semibold mb-1">Qazi Shahid</h3>
                 <p class="text-sm text-swiss-red mb-3">Head of Design</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Award-winning product designer focused on human-centered AI.</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Product designer focused on human-centered AI.</p>
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <div class="w-24 h-24 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 mx-auto mb-5"></div>
-                <h3 class="text-xl font-semibold mb-1">Michael Park</h3>
-                <p class="text-sm text-swiss-red mb-3">Head of Engineering</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Full-stack engineer passionate about building scalable AI.</p>
+                <h3 class="text-xl font-semibold mb-1">Muhammad Ansar</h3>
+                <p class="text-sm text-swiss-red mb-3">Head of Finances</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Finance experienced with 3+ years of experience.</p>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Want to join our journey?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Be part of the future of AI assistance. Get started with Elara today.</p>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -294,15 +295,12 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                         </svg>
                     </a>
                 <?php endif; ?>
-                <a href="/contact-us.php" class="inline-flex items-center gap-2 px-7 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all">
-                    Contact Us
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
