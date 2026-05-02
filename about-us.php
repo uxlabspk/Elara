@@ -352,12 +352,21 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
         </div>
         
-        <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">&copy; 2026 Elara AI. All rights reserved.</p>
+        <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Elara AI. All rights reserved.</p>
+            <div class="flex items-center gap-2">
+                <button id="themeToggle" class="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <span id="themeText">Dark Mode</span>
+                </button>
+            </div>
         </div>
     </footer>
 
     <script>
+        // Theme initialization using Tailwind's 'class' dark mode
         (function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
@@ -383,6 +392,38 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             document.querySelectorAll('[data-animate]').forEach(el => {
                 observer.observe(el);
             });
+        })();
+
+        // Theme toggle functionality
+        (function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            
+            if (themeToggle) {
+                // Set initial state based on current theme
+                const currentTheme = localStorage.getItem('theme') || 'light';
+                updateThemeToggle(currentTheme);
+                
+                themeToggle.addEventListener('click', () => {
+                    const html = document.documentElement;
+                    const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
+                    
+                    html.classList.toggle('dark');
+                    localStorage.setItem('theme', newTheme);
+                    updateThemeToggle(newTheme);
+                });
+            }
+            
+            function updateThemeToggle(theme) {
+                if (theme === 'dark') {
+                    themeIcon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+                    themeText.textContent = 'Light Mode';
+                } else {
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                    themeText.textContent = 'Dark Mode';
+                }
+            }
         })();
     </script>
 </body>
