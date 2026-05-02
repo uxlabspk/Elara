@@ -10,4 +10,4 @@ setcookie('elara_user', '', time() - 3600, '/');
 setcookie('elara_token', '', time() - 3600, '/');
 
 // Redirect to login page
-redirect('login.php');
+redirect('/auth/login.php');

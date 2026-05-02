@@ -9,6 +9,10 @@
 require_once '../includes/functions.php';
 require_once '../config/database.php';
 
+if (is_logged_in()) {
+    redirect('/app/index.php');
+}
+
 $settings = isset($_SESSION['user_id']) ? get_user_settings($pdo, $_SESSION['user_id']) : [];
 $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
@@ -20,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $email = trim(strtolower($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['password_confirm'] ?? '';
 
@@ -39,11 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
             $stmt->execute([$name, $email, $hash]);
-            
-            $_SESSION['user_id'] = $pdo->lastInsertId();
-            
+
+            session_regenerate_id(true);
+            $userId = (int)$pdo->lastInsertId();
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['logged_in_at'] = time();
+
             $stmt = $pdo->prepare("INSERT INTO user_settings (user_id) VALUES (?)");
-            $stmt->execute([$pdo->lastInsertId()]);
+            $stmt->execute([$userId]);
             
             redirect('../app/index.php');
         }
@@ -134,6 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                         
                         <form action="/auth/register.php" method="POST" class="space-y-6">
+                            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
                                 <input 

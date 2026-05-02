@@ -29,6 +29,143 @@ function redirect($url) {
 }
 
 /**
+ * Send an email through the configured SMTP server.
+ */
+function send_smtp_email($toEmail, $toName, $subject, $body) {
+    if (!filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
+        return false;
+    }
+
+    $host = defined('SMTP_HOST') ? SMTP_HOST : 'smtp.hostinger.com';
+    $port = (int)(defined('SMTP_PORT') ? SMTP_PORT : 587);
+    $username = defined('SMTP_USERNAME') ? SMTP_USERNAME : '';
+    $password = defined('SMTP_PASSWORD') ? SMTP_PASSWORD : '';
+    $encryption = strtolower(defined('SMTP_ENCRYPTION') ? SMTP_ENCRYPTION : 'tls');
+    $fromEmail = defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : $username;
+    $fromName = defined('SMTP_FROM_NAME') ? SMTP_FROM_NAME : 'Elara';
+
+    if ($username === '' || $password === '' || $fromEmail === '') {
+        error_log('SMTP is not configured.');
+        return false;
+    }
+
+    $remoteHost = ($encryption === 'ssl') ? "ssl://{$host}" : $host;
+    $socket = @stream_socket_client($remoteHost . ':' . $port, $errno, $errstr, 30, STREAM_CLIENT_CONNECT);
+    if (!$socket) {
+        error_log('SMTP connect failed: ' . $errstr);
+        return false;
+    }
+
+    $readResponse = function () use ($socket) {
+        $response = '';
+        while (($line = fgets($socket, 515)) !== false) {
+            $response .= $line;
+            if (isset($line[3]) && $line[3] === ' ') {
+                break;
+            }
+        }
+        return $response;
+    };
+
+    $sendCommand = function ($command, $expectedCodes) use ($socket, $readResponse) {
+        fwrite($socket, $command . "\r\n");
+        $response = $readResponse();
+        $code = (int)substr($response, 0, 3);
+        if (!in_array($code, (array)$expectedCodes, true)) {
+            error_log('SMTP command failed: ' . trim($command) . ' | Response: ' . trim($response));
+            return false;
+        }
+        return $response;
+    };
+
+    $initialResponse = $readResponse();
+    if ((int)substr($initialResponse, 0, 3) !== 220) {
+        error_log('SMTP server rejected connection: ' . trim($initialResponse));
+        fclose($socket);
+        return false;
+    }
+
+    $hostname = gethostname() ?: 'localhost';
+    if ($sendCommand('EHLO ' . $hostname, [250]) === false) {
+        fclose($socket);
+        return false;
+    }
+
+    if ($encryption === 'tls' && $port !== 465) {
+        if ($sendCommand('STARTTLS', [220]) === false) {
+            fclose($socket);
+            return false;
+        }
+
+        if (!stream_socket_enable_crypto($socket, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            error_log('SMTP STARTTLS negotiation failed.');
+            fclose($socket);
+            return false;
+        }
+
+        if ($sendCommand('EHLO ' . $hostname, [250]) === false) {
+            fclose($socket);
+            return false;
+        }
+    }
+
+    if ($sendCommand('AUTH LOGIN', [334]) === false) {
+        fclose($socket);
+        return false;
+    }
+    if ($sendCommand(base64_encode($username), [334]) === false) {
+        fclose($socket);
+        return false;
+    }
+    if ($sendCommand(base64_encode($password), [235]) === false) {
+        fclose($socket);
+        return false;
+    }
+
+    if ($sendCommand('MAIL FROM:<' . $fromEmail . '>', [250]) === false) {
+        fclose($socket);
+        return false;
+    }
+    if ($sendCommand('RCPT TO:<' . $toEmail . '>', [250, 251]) === false) {
+        fclose($socket);
+        return false;
+    }
+    if ($sendCommand('DATA', [354]) === false) {
+        fclose($socket);
+        return false;
+    }
+
+    $encodedSubject = preg_match('/[^\x20-\x7E]/', $subject)
+        ? '=?UTF-8?B?' . base64_encode($subject) . '?='
+        : $subject;
+    $safeBody = preg_replace('/\r?\n/', "\r\n", $body);
+    $safeBody = preg_replace('/^\./m', '..', $safeBody);
+
+    $headers = [
+        'From: ' . ($fromName !== '' ? $fromName . ' <' . $fromEmail . '>' : $fromEmail),
+        'To: ' . ($toName !== '' ? $toName . ' <' . $toEmail . '>' : $toEmail),
+        'Subject: ' . $encodedSubject,
+        'Date: ' . date(DATE_RFC2822),
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 7bit',
+    ];
+
+    fwrite($socket, implode("\r\n", $headers) . "\r\n\r\n" . $safeBody . "\r\n.\r\n");
+    $dataResponse = $readResponse();
+    $sent = (int)substr($dataResponse, 0, 3) === 250;
+
+    $sendCommand('QUIT', [221]);
+    fclose($socket);
+
+    if (!$sent) {
+        error_log('SMTP send failed: ' . trim($dataResponse));
+    }
+
+    return $sent;
+}
+
+/**
  * Check if user is logged in.
  */
 function is_logged_in() {
@@ -39,8 +176,18 @@ function is_logged_in() {
  * Require authentication. Redirect to login if not.
  */
 function require_login() {
+    global $pdo;
+
     if (!is_logged_in()) {
         redirect('/auth/login.php');
+    }
+
+    if (isset($pdo)) {
+        $user = get_user_by_id($pdo, $_SESSION['user_id']);
+        if (!$user) {
+            user_logout();
+            redirect('/auth/login.php');
+        }
     }
 }
 
@@ -48,13 +195,34 @@ function require_login() {
  * Get current user's settings (or defaults).
  */
 function get_user_settings($pdo, $user_id) {
+    $user = get_user_by_id($pdo, $user_id);
+    if (!$user) {
+        return [
+            'theme' => 'light',
+            'model' => 'mistral-small-latest',
+            'temperature' => 0.7,
+            'max_tokens' => 2048,
+            'language' => 'en'
+        ];
+    }
+
     $stmt = $pdo->prepare("SELECT * FROM user_settings WHERE user_id = ?");
     $stmt->execute([$user_id]);
     $settings = $stmt->fetch();
     if (!$settings) {
         // Insert defaults
-        $stmt = $pdo->prepare("INSERT INTO user_settings (user_id) VALUES (?)");
-        $stmt->execute([$user_id]);
+        try {
+            $stmt = $pdo->prepare("INSERT INTO user_settings (user_id) VALUES (?)");
+            $stmt->execute([$user_id]);
+        } catch (PDOException $e) {
+            return [
+                'theme' => 'light',
+                'model' => 'mistral-small-latest',
+                'temperature' => 0.7,
+                'max_tokens' => 2048,
+                'language' => 'en'
+            ];
+        }
         return [
             'theme' => 'light',
             'model' => 'mistral-small-latest',

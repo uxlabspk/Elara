@@ -37,15 +37,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user) {
             $token = bin2hex(random_bytes(32));
             $expires = date('Y-m-d H:i:s', time() + 3600);
+
+            $stmt = $pdo->prepare("DELETE FROM password_resets WHERE email = ?");
+            $stmt->execute([$email]);
             
             $stmt = $pdo->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)");
             $stmt->execute([$email, $token, $expires]);
             
             $reset_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/auth/reset-password.php?token=' . $token;
-            
-            error_log("Password reset link: " . $reset_link);
-            
-            $success = 'If an account with that email exists, we have sent password reset instructions.';
+
+            $emailBody = "Hello " . $user['name'] . ",\n\n";
+            $emailBody .= "We received a request to reset your Elara AI password.\n\n";
+            $emailBody .= "Reset your password here: " . $reset_link . "\n\n";
+            $emailBody .= "This link expires in 1 hour. If you did not request this, you can ignore this message.";
+
+            if (!send_smtp_email($email, $user['name'], 'Reset your Elara AI password', $emailBody)) {
+                $error = 'We could not send the reset email right now. Please check your SMTP settings.';
+            } else {
+                $success = 'If an account with that email exists, we have sent password reset instructions.';
+            }
         } else {
             $success = 'If an account with that email exists, we have sent password reset instructions.';
         }

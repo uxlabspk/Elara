@@ -1,6 +1,8 @@
 <?php
 // config/database.php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Load environment variables from .env file
 $envFile = __DIR__ . '/../.env';
@@ -44,6 +46,13 @@ defined('DB_PASS') || define('DB_PASS', '');
 
 defined('MISTRAL_API_KEY') || define('MISTRAL_API_KEY', '');
 defined('MISTRAL_API_URL') || define('MISTRAL_API_URL', 'https://api.mistral.ai/v1/chat/completions');
+defined('SMTP_HOST') || define('SMTP_HOST', 'smtp.hostinger.com');
+defined('SMTP_PORT') || define('SMTP_PORT', '587');
+defined('SMTP_USERNAME') || define('SMTP_USERNAME', '');
+defined('SMTP_PASSWORD') || define('SMTP_PASSWORD', '');
+defined('SMTP_ENCRYPTION') || define('SMTP_ENCRYPTION', 'tls');
+defined('SMTP_FROM_EMAIL') || define('SMTP_FROM_EMAIL', '');
+defined('SMTP_FROM_NAME') || define('SMTP_FROM_NAME', 'Elara');
 
 // PDO connection
 try {
@@ -57,6 +66,32 @@ try {
             PDO::ATTR_EMULATE_PREPARES => false,
         ]
     );
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS password_resets (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) NOT NULL,
+        token VARCHAR(64) UNIQUE NOT NULL,
+        expires_at DATETIME NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX (email),
+        INDEX (expires_at)
+    )");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS email_verifications (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) NOT NULL,
+        token VARCHAR(64) UNIQUE NOT NULL,
+        expires_at DATETIME NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX (email),
+        INDEX (expires_at)
+    )");
+
+    $columnCheck = $pdo->prepare("SHOW COLUMNS FROM users LIKE 'email_verified'");
+    $columnCheck->execute();
+    if (!$columnCheck->fetch()) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN email_verified TINYINT(1) NOT NULL DEFAULT 1 AFTER password");
+    }
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }

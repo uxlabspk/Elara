@@ -123,6 +123,7 @@ function is_email_available($pdo, $email, $exclude_user_id = null) {
 function user_login($pdo, $email, $password) {
     $user = get_user_by_email($pdo, $email);
     if ($user && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['logged_in_at'] = time();
         
@@ -143,8 +144,10 @@ function user_login($pdo, $email, $password) {
  * User logout
  */
 function user_logout() {
-    session_unset();
-    session_destroy();
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        session_unset();
+        session_destroy();
+    }
 }
 
 /**

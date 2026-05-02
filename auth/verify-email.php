@@ -13,8 +13,8 @@ $settings = isset($_SESSION['user_id']) ? get_user_settings($pdo, $_SESSION['use
 $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
 $error = '';
-$success = false;
-$already_verified = false;
+$message = '';
+$verified = false;
 $token = $_GET['token'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,17 +31,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($user) {
             $verification_token = bin2hex(random_bytes(32));
             $expires = date('Y-m-d H:i:s', time() + 3600);
+
+            $stmt = $pdo->prepare("DELETE FROM email_verifications WHERE email = ?");
+            $stmt->execute([$email]);
             
             $stmt = $pdo->prepare("INSERT INTO email_verifications (email, token, expires_at) VALUES (?, ?, ?)");
             $stmt->execute([$email, $verification_token, $expires]);
             
             $verify_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/auth/verify-email.php?token=' . $verification_token;
-            
-            error_log("Email verification link: " . $verify_link);
-            
-            $success = 'If an account with that email exists, we have sent verification instructions.';
+
+            $emailBody = "Hello " . $user['name'] . ",\n\n";
+            $emailBody .= "Please verify your Elara AI email address by clicking this link:\n\n";
+            $emailBody .= $verify_link . "\n\n";
+            $emailBody .= "This link expires in 1 hour. If you did not request this, you can ignore this message.";
+
+            if (!send_smtp_email($email, $user['name'], 'Verify your Elara AI email address', $emailBody)) {
+                $error = 'We could not send the verification email right now. Please check your SMTP settings.';
+            } else {
+                $message = 'If an account with that email exists, we have sent verification instructions.';
+            }
         } else {
-            $success = 'If an account with that email exists, we have sent verification instructions.';
+            $message = 'If an account with that email exists, we have sent verification instructions.';
         }
     }
 }
@@ -144,12 +154,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 <?php endif; ?>
                 
-                <?php if ($success): ?>
+                <?php if ($message): ?>
                     <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 p-4 rounded-lg mb-6">
-                        <?= h($success) ?>
+                        <?= h($message) ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <?php 
                 if (!empty($token)) {
                     $stmt = $pdo->prepare("SELECT email FROM email_verifications WHERE token = ? AND expires_at > NOW()");
@@ -165,20 +175,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $stmt = $pdo->prepare("DELETE FROM email_verifications WHERE token = ?");
                         $stmt->execute([$token]);
                         
-                        $success = true;
+                        $verified = true;
                     } else {
-                        echo '<div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-4 rounded-lg mb-6">
-                            Invalid or expired verification token.
-                        </div>';
+                        $error = 'Invalid or expired verification token.';
                     }
                 }
                 ?>
-                
-                <?php if ($success && empty($token)): ?>
+
+                <?php if ($verified): ?>
                     <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 p-4 rounded-lg mb-6">
                         Your email has been verified. You can now <a href="/auth/login.php" class="font-semibold underline">sign in</a>.
                     </div>
-                <?php elseif (!$success): ?>
+                <?php elseif (!$message): ?>
                 <form method="post" action="verify-email.php" class="space-y-6">
                     <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                     
