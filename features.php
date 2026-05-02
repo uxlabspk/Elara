@@ -56,7 +56,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
@@ -85,7 +85,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-36 pb-28 max-w-7xl mx-auto px-6">
+    <section class="pt-36 pb-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -110,13 +110,13 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         </div>
     </section>
 
-    <!-- Core Features Section -->
-    <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+    <!-- Features Section -->
+    <section id="features" class="py-28 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                        Core Features
+                        Capabilities
                     </p>
                     <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         Everything you need<br>
@@ -126,76 +126,77 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature Cards -->
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Smart Writing</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Create compelling content with AI assistance. From emails to essays, blog posts to books — get help with any writing task.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Create compelling content with AI assistance. From emails to essays, get help with any writing task.</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <polyline points="16 18 22 12 16 6"/>
                             <polyline points="8 6 2 12 8 18"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Code & Debug</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Write, review, and debug code across multiple programming languages with intelligent suggestions and explanations.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Write, review, and debug code across multiple programming languages with intelligent suggestions.</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#D97706" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <circle cx="11" cy="11" r="8"/>
                             <path d="m21 21-4.35-4.35"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Research</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Dive deep into any topic with comprehensive analysis, well-sourced information, and detailed explanations.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Dive deep into any topic with comprehensive analysis and well-sourced information.</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#9333EA" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
                             <path d="M6 12v5c3 3 9 3 12 0v-5"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Learning</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Learn new concepts with explanations tailored to your level of understanding. From basics to advanced topics.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Learn new concepts with explanations tailored to your level of understanding.</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#E11D48" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <line x1="18" y1="20" x2="18" y2="10"/>
                             <line x1="12" y1="20" x2="12" y2="4"/>
                             <line x1="6" y1="20" x2="6" y2="14"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Data Analysis</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Transform raw data into actionable insights with powerful analytical capabilities and visualizations.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Transform raw data into actionable insights with powerful analytical capabilities.</p>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-sky-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#0EA5E9" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Conversations</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Natural, contextual conversations that remember your context and preferences throughout your session.</p>
+                    <p class="text-gray-500 dark:text-gray-400">Natural, contextual conversations that remember your context and preferences.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Advanced Features Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -210,8 +211,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#6366F1" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                         <line x1="8" y1="21" x2="16" y2="21"/>
                         <line x1="12" y1="17" x2="12" y2="21"/>
@@ -222,8 +223,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#10B981" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M12 2L2 7l10 5 10-5-10-5z"/>
                         <path d="M2 17l10 5 10-5"/>
                         <path d="M2 12l10 5 10-5"/>
@@ -234,8 +235,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#8B5CF6" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <circle cx="12" cy="12" r="10"/>
                         <polyline points="12 6 12 12 16 14"/>
                     </svg>
@@ -245,8 +246,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             </div>
             
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <div class="w-12 h-12 rounded-xl bg-cyan-50 flex items-center justify-center mb-5">
-                    <svg width="24" height="24" fill="none" stroke="#06B6D4" stroke-width="2" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                    <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                         <path d="M18 20V10M12 20V4M6 20v-6"/>
                     </svg>
                 </div>
@@ -258,7 +259,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Use Cases Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -306,11 +307,11 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section id="how-it-works" class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    How It Works
+                    Process
                 </p>
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Simple to start.<br>
@@ -321,19 +322,19 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">01</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">01</span>
                 <h3 class="text-xl font-semibold mb-3">Ask anything</h3>
                 <p class="text-gray-500 dark:text-gray-400">Type your question or task in natural language. No complicated prompts needed.</p>
             </div>
             
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">02</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">02</span>
                 <h3 class="text-xl font-semibold mb-3">Get instant answers</h3>
                 <p class="text-gray-500 dark:text-gray-400">Receive intelligent responses tailored to your specific needs and context.</p>
             </div>
             
             <div class="p-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                <span class="text-6xl font-extrabold text-gray-300 dark:text-gray-700 block mb-4">03</span>
+                <span class="text-6xl font-extrabold text-swiss-red block mb-4">03</span>
                 <h3 class="text-xl font-semibold mb-3">Iterate & refine</h3>
                 <p class="text-gray-500 dark:text-gray-400">Continue the conversation to refine results until you get exactly what you need.</p>
             </div>
@@ -341,10 +342,10 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- CTA Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to experience it?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Start using Elara's powerful features today. It's free to get started.</p>
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -361,15 +362,12 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                         </svg>
                     </a>
                 <?php endif; ?>
-                <a href="/pricing.php" class="inline-flex items-center gap-2 px-7 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all">
-                    View Pricing
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
