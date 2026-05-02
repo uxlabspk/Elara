@@ -56,7 +56,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
@@ -85,8 +85,9 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section pt-36 pb-28 h-[70vh] min-h-[500px] max-w-7xl mx-auto px-6 flex items-center" style="background-image: linear-gradient(rgba(3,7,18,0.7), rgba(3,7,18,0.7)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <div class="grid grid-cols-12 gap-6 w-full">
+    <section style="background-image: linear-gradient(rgba(3,7,18,0.7), rgba(3,7,18,0.7)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="hero-section pt-36 pb-28 h-screen container mx-auto px-6 flex items-center">
+            <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Pricing
@@ -107,10 +108,11 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 </p>
             </div>
         </div>
+        </div>
     </section>
 
     <!-- Pricing Plans Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2">Free</p>
@@ -205,7 +207,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Feature Comparison Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -274,7 +276,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -287,7 +289,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         </div>
         
         <div class="grid grid-cols-12 gap-6">
-            <div class="col-span-12 lg:col-span-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+            <div class="col-span-12 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <div class="border-b border-gray-200 dark:border-gray-700">
                     <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
                         <span>Can I switch plans anytime?</span>
@@ -352,10 +354,10 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- CTA Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already upgraded to Elara Pro.</p>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -366,21 +368,18 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                     </a>
                 <?php else: ?>
                     <a href="/app/index.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
-                        Upgrade Now
+                        Start Chatting
                         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
                         </svg>
                     </a>
                 <?php endif; ?>
-                <a href="/contact-us.php" class="inline-flex items-center gap-2 px-7 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all">
-                    Contact Sales
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
