@@ -56,7 +56,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
@@ -85,8 +85,9 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section pt-36 pb-28 h-[70vh] min-h-[500px] max-w-7xl mx-auto px-6 flex items-center" style="background-image: linear-gradient(rgba(3,7,18,0.65), rgba(3,7,18,0.65)), url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-        <div class="grid grid-cols-12 gap-6 w-full">
+    <section style="background-image: linear-gradient(rgba(3,7,18,0.65), rgba(3,7,18,0.65)), url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="hero-section pt-36 pb-28 container h-screen mx-auto px-6 flex items-center">
+            <div class="grid grid-cols-12 gap-6 w-full">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     Contact Us
@@ -107,11 +108,12 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 </p>
             </div>
         </div>
+        </div>
     </section>
 
     <!-- Contact Options Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6 mb-16">
                 <div class="col-span-12">
                     <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -126,45 +128,42 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#2563EB" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Live Chat</h3>
                     <p class="text-gray-500 dark:text-gray-400 mb-4">Get instant help from our support team.</p>
-                    <a href="#" class="text-swiss-red font-medium hover:underline">Start Chat</a>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#16A34A" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Email</h3>
                     <p class="text-gray-500 dark:text-gray-400 mb-4">Send us a message anytime.</p>
-                    <a href="mailto:support@elara.ai" class="text-swiss-red font-medium hover:underline">support@elara.ai</a>
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:border-gray-400 dark:hover:border-gray-500 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center mb-5">
-                        <svg width="24" height="24" fill="none" stroke="#9333EA" stroke-width="2" viewBox="0 0 24 24">
+                    <div class="w-12 h-12 rounded-xl bg-swiss-red flex items-center justify-center mb-5">
+                        <svg width="24" height="24" fill="none" stroke="#ffffff" stroke-width="2" viewBox="0 0 24 24">
                             <path d="M23 7l-7 5 7 5V7z"/>
                             <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Video Call</h3>
                     <p class="text-gray-500 dark:text-gray-400 mb-4">Book a demo or support call.</p>
-                    <a href="#" class="text-swiss-red font-medium hover:underline">Schedule Call</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Form Section -->
-    <section class="py-28 max-w-7xl mx-auto px-6">
+    <section class="py-28 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6 mb-16">
             <div class="col-span-12">
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
@@ -274,7 +273,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 
     <!-- Response Time Section -->
     <section class="py-28 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="container mx-auto px-6">
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 md:col-span-6 lg:col-span-4 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8">
@@ -301,7 +300,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 max-w-7xl mx-auto px-6">
+    <footer class="border-t border-gray-200 dark:border-gray-800 py-12 container mx-auto px-6">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
