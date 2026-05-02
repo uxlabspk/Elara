@@ -148,9 +148,6 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                             </svg>
                         </a>
                     <?php endif; ?>
-                    <a href="#features" class="inline-flex items-center gap-2 px-7 py-4 border-2 border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-50 font-semibold rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all">
-                        See Features
-                    </a>
                 </div>
             </div>
         </div>
