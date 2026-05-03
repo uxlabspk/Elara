@@ -9,6 +9,17 @@
     <title>Chat — Elara AI</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <script>
+        function copyCode(btn) {
+            const codeEl = btn.previousElementSibling.querySelector('code');
+            navigator.clipboard.writeText(codeEl.textContent).then(() => {
+                const original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => btn.textContent = 'Copy', 2000);
+            });
+        }
+    </script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -89,11 +100,36 @@
         }
 
         /* Code blocks */
+        .code-block-wrapper {
+            position: relative;
+            margin: 8px 0;
+        }
         .msg-bubble pre {
             background: #1e2130; color: #e2e8f0;
             padding: 12px 14px; border-radius: 8px;
-            overflow-x: auto; margin: 8px 0;
+            overflow-x: auto; margin: 0;
             font-family: 'DM Mono', monospace; font-size: 13px;
+            padding-right: 50px;
+        }
+        .copy-code-btn {
+            position: absolute;
+            top: 8px; right: 8px;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-code-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .copy-code-btn:active {
+            background: rgba(255, 255, 255, 0.2);
         }
         .msg-bubble code {
             background: rgba(0,0,0,.08); padding: 1px 5px;
@@ -101,6 +137,34 @@
         }
         .msg-bubble.user code { background: rgba(255,255,255,.2); }
         .msg-bubble pre code { background: transparent; padding: 0; }
+
+        /* Markdown elements */
+        .msg-bubble h1, .msg-bubble h2, .msg-bubble h3, .msg-bubble h4, .msg-bubble h5, .msg-bubble h6 {
+            margin: 12px 0 8px 0; font-weight: 600; line-height: 1.3;
+        }
+        .msg-bubble h1 { font-size: 1.4em; }
+        .msg-bubble h2 { font-size: 1.25em; }
+        .msg-bubble h3 { font-size: 1.1em; }
+        .msg-bubble h4, .msg-bubble h5, .msg-bubble h6 { font-size: 1em; }
+
+        .msg-bubble p { margin: 8px 0; }
+        .msg-bubble ul, .msg-bubble ol { margin: 8px 0; padding-left: 24px; }
+        .msg-bubble li { margin: 4px 0; }
+        .msg-bubble blockquote {
+            border-left: 3px solid rgba(255,59,48,.3);
+            padding-left: 12px; margin: 8px 0;
+            color: rgba(0,0,0,.7);
+        }
+        .dark .msg-bubble blockquote { color: rgba(255,255,255,.6); }
+        .msg-bubble strong { font-weight: 600; }
+        .msg-bubble em { font-style: italic; }
+        .msg-bubble a { color: var(--accent); text-decoration: none; }
+        .msg-bubble a:hover { text-decoration: underline; }
+        .msg-bubble table { border-collapse: collapse; margin: 8px 0; width: 100%; font-size: 0.95em; }
+        .msg-bubble th, .msg-bubble td { border: 1px solid rgba(0,0,0,.1); padding: 6px 8px; text-align: left; }
+        .dark .msg-bubble th, .dark .msg-bubble td { border-color: rgba(255,255,255,.1); }
+        .msg-bubble th { background: rgba(0,0,0,.04); font-weight: 600; }
+        .dark .msg-bubble th { background: rgba(255,255,255,.05); }
 
         /* Fade-up animation */
         .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
@@ -430,13 +494,31 @@
             row.className = `flex py-1.5 max-w-[720px] mx-auto w-full px-6 ${role === 'user' ? 'justify-end' : 'justify-start'}`;
 
             const bubble = document.createElement('div');
-            bubble.className = `msg-bubble max-w-[78%] px-3.5 py-2.5 text-[14.5px] leading-[1.65] whitespace-pre-wrap rounded-2xl ${
+            bubble.className = `msg-bubble max-w-[78%] px-3.5 py-2.5 text-[14.5px] leading-[1.65] rounded-2xl ${
                 role === 'user'
                     ? 'text-white rounded-br-[4px]'
                     : 'bg-[#f4f4f3] dark:bg-[#242424] text-[#1a1a1a] dark:text-[#e8e8e6] rounded-bl-[4px]'
             } ${role}`;
             if (role === 'user') bubble.style.background = 'var(--accent)';
-            bubble.innerHTML = content.replace(/\n/g, '<br>');
+
+            if (role === 'assistant') {
+                bubble.innerHTML = marked.parse(content);
+                // Add copy buttons to code blocks
+                bubble.querySelectorAll('pre').forEach(pre => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'code-block-wrapper';
+                    const btn = document.createElement('button');
+                    btn.className = 'copy-code-btn';
+                    btn.textContent = 'Copy';
+                    btn.onclick = function() { copyCode(this); };
+                    wrapper.appendChild(pre.cloneNode(true));
+                    wrapper.appendChild(btn);
+                    pre.replaceWith(wrapper);
+                });
+            } else {
+                bubble.innerHTML = content.replace(/\n/g, '<br>');
+                bubble.style.whiteSpace = 'pre-wrap';
+            }
 
             row.appendChild(bubble);
             wrap.appendChild(row);
