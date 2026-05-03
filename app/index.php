@@ -237,15 +237,24 @@
 
                     <!-- Dropdown -->
                     <div id="user-dropdown" class="hidden absolute bottom-[calc(100%+6px)] left-0 right-0 bg-white dark:bg-[#1e1e1e] border border-[#e8e8e6] dark:border-[#2e2e2e] rounded-xl shadow-xl overflow-hidden z-50">
-                        <a href="/app/profile.php" class="block px-3.5 py-2.5 text-[13px] text-[#444] dark:text-[#bbb] hover:bg-[#f4f4f3] dark:hover:bg-[#252525] transition-colors">Profile</a>
-                        <a href="/app/settings.php" class="block px-3.5 py-2.5 text-[13px] text-[#444] dark:text-[#bbb] hover:bg-[#f4f4f3] dark:hover:bg-[#252525] transition-colors">Settings</a>
+                        <!-- <a href="/app/profile.php" class="block px-3.5 py-2.5 text-[13px] text-[#444] dark:text-[#bbb] hover:bg-[#f4f4f3] dark:hover:bg-[#252525] transition-colors">Profile</a>
+                        <a href="/app/settings.php" class="block px-3.5 py-2.5 text-[13px] text-[#444] dark:text-[#bbb] hover:bg-[#f4f4f3] dark:hover:bg-[#252525] transition-colors">Settings</a> -->
                         <button onclick="toggleTheme()" class="w-full flex items-center gap-2 px-3.5 py-2.5 text-[13px] text-[#888] hover:bg-[#f4f4f3] dark:hover:bg-[#252525] transition-colors bg-transparent border-none cursor-pointer">
                             <svg id="theme-icon-light" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                             <svg id="theme-icon-dark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                             <span id="theme-label">Dark mode</span>
                         </button>
                         <div class="h-px bg-[#ebebea] dark:bg-[#2a2a2a] my-1"></div>
-                        <a href="/auth/logout.php" class="block px-3.5 py-2.5 text-[13px] text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors">Log out</a>
+                        <a href="/auth/logout.php" class="block px-3.5 py-2.5 text-[13px] text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors">
+                            <span class="flex items-center justify-content-center gap-2">
+                                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.9999 2C10.2385 2 7.99991 4.23858 7.99991 7C7.99991 7.55228 8.44762 8 8.99991 8C9.55219 8 9.99991 7.55228 9.99991 7C9.99991 5.34315 11.3431 4 12.9999 4H16.9999C18.6568 4 19.9999 5.34315 19.9999 7V17C19.9999 18.6569 18.6568 20 16.9999 20H12.9999C11.3431 20 9.99991 18.6569 9.99991 17C9.99991 16.4477 9.55219 16 8.99991 16C8.44762 16 7.99991 16.4477 7.99991 17C7.99991 19.7614 10.2385 22 12.9999 22H16.9999C19.7613 22 21.9999 19.7614 21.9999 17V7C21.9999 4.23858 19.7613 2 16.9999 2H12.9999Z" fill="#FF3B30"/>
+                                    <path d="M13.9999 11C14.5522 11 14.9999 11.4477 14.9999 12C14.9999 12.5523 14.5522 13 13.9999 13V11Z" fill="#FF3B30"/>
+                                    <path d="M5.71783 11C5.80685 10.8902 5.89214 10.7837 5.97282 10.682C6.21831 10.3723 6.42615 10.1004 6.57291 9.90549C6.64636 9.80795 6.70468 9.72946 6.74495 9.67492L6.79152 9.61162L6.804 9.59454L6.80842 9.58848C6.80846 9.58842 6.80892 9.58778 5.99991 9L6.80842 9.58848C7.13304 9.14167 7.0345 8.51561 6.58769 8.19098C6.14091 7.86637 5.51558 7.9654 5.19094 8.41215L5.18812 8.41602L5.17788 8.43002L5.13612 8.48679C5.09918 8.53682 5.04456 8.61033 4.97516 8.7025C4.83623 8.88702 4.63874 9.14542 4.40567 9.43937C3.93443 10.0337 3.33759 10.7481 2.7928 11.2929L2.08569 12L2.7928 12.7071C3.33759 13.2519 3.93443 13.9663 4.40567 14.5606C4.63874 14.8546 4.83623 15.113 4.97516 15.2975C5.04456 15.3897 5.09918 15.4632 5.13612 15.5132L5.17788 15.57L5.18812 15.584L5.19045 15.5872C5.51509 16.0339 6.14091 16.1336 6.58769 15.809C7.0345 15.4844 7.13355 14.859 6.80892 14.4122L5.99991 15C6.80892 14.4122 6.80897 14.4123 6.80892 14.4122L6.804 14.4055L6.79152 14.3884L6.74495 14.3251C6.70468 14.2705 6.64636 14.1921 6.57291 14.0945C6.42615 13.8996 6.21831 13.6277 5.97282 13.318C5.89214 13.2163 5.80685 13.1098 5.71783 13H13.9999V11H5.71783Z" fill="#FF3B30"/>
+                                </svg>
+                                Log out
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -327,11 +336,11 @@
                 ></textarea>
                 <div class="flex items-center justify-between px-2.5 pb-2.5 pt-1.5">
                     <div class="flex gap-1 items-center">
-                        <button class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border-none bg-transparent cursor-pointer text-[#999] hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:text-[#555] dark:hover:text-[#aaa] transition-colors text-[12.5px] font-medium" title="Attach file">
+                        <!-- <button class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border-none bg-transparent cursor-pointer text-[#999] hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:text-[#555] dark:hover:text-[#aaa] transition-colors text-[12.5px] font-medium" title="Attach file">
                             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-                        </button>
+                        </button> -->
                         <button class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[#e0e0de] dark:border-[#2e2e2e] bg-transparent cursor-pointer text-[#777] dark:text-[#666] text-[12px] font-medium hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:border-[#d0d0ce] transition-colors" title="Switch model">
-                            Elara 4.0
+                            Elara 1.0
                             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                     </div>
