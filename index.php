@@ -343,7 +343,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2">Free</p>
-                <h3 class="text-4xl font-bold mb-2">$0</h3>
+                <h3 class="text-4xl font-bold mb-2">Rs 0</h3>
                 <p class="text-gray-500 dark:text-gray-400 mb-8">Forever free</p>
                 
                 <ul class="space-y-4 mb-8">
@@ -374,7 +374,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             
             <div class="bg-white dark:bg-gray-800 border-2 border-swiss-red rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                 <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-2">Pro</p>
-                <h3 class="text-4xl font-bold mb-2">$19<span class="text-lg font-normal text-gray-500 dark:text-gray-400">/month</span></h3>
+                <h3 class="text-4xl font-bold mb-2">₨ 3,000<span class="text-lg font-normal text-gray-500 dark:text-gray-400">/month</span></h3>
                 <p class="text-gray-500 dark:text-gray-400 mb-8">For power users</p>
                 
                 <ul class="space-y-4 mb-8">
