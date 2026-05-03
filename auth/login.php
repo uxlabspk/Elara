@@ -78,6 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Space Grotesk', system-ui, sans-serif;
         }
+
+        .hero-overlay {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
+                url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1650&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
         
         /* Custom form focus states */
         input:focus,
@@ -102,17 +111,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-50 transition-colors duration-300 font-sans">
 
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 no-underline">
+                <span class="text-2xl font-bold text-swiss-red">E</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+            </a>
+
+            <div class="flex items-center gap-3">
+                <a href="/auth/register.php" class="hidden sm:inline-flex text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors">Create account</a>
+                <button id="themeToggle" type="button" class="flex items-center gap-2 px-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <span id="themeText" class="hidden sm:inline">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section >
-        <div class="pt-36 pb-28 h-screen container mx-auto px-6 flex items-center bg-cover bg-center relative">
-            <div class="grid grid-cols-6 gap-6 w-full max-w-xl mx-auto">
-                <div class="col-span-6">
-                    <div class="bg-white dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-2xl p-8 shadow-xl animate-fade-in">
-                        <div class="mb-8">
-                            <h2 class="text-2xl font-bold mb-2">Sign in to Elara</h2>
-                            <p class="text-gray-500 dark:text-gray-400">Enter your credentials to access your AI assistant</p>
+    <section class="hero-overlay min-h-screen">
+        <div class="pt-28 pb-16 min-h-screen container mx-auto px-6 flex items-center">
+            <div class="grid grid-cols-12 gap-6 w-full items-center">
+                <div class="col-span-12 lg:col-span-6 text-white">
+                    <p class="text-sm font-semibold uppercase tracking-widest text-swiss-red mb-3 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                        Welcome back
+                    </p>
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight mb-6 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                        Continue your next
+                        AI conversation.
+                    </h1>
+                    <p class="text-base md:text-lg text-gray-200 max-w-xl leading-relaxed mb-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                        Sign in to access your chat history, saved workflows, and personalized assistant settings.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                        <div class="rounded-xl border border-white/25 bg-white/10 backdrop-blur-sm p-4">
+                            <p class="text-xs uppercase tracking-wider text-gray-200 mb-1">Always synced</p>
+                            <p class="font-semibold">Your conversations, everywhere</p>
                         </div>
-                        
+                        <div class="rounded-xl border border-white/25 bg-white/10 backdrop-blur-sm p-4">
+                            <p class="text-xs uppercase tracking-wider text-gray-200 mb-1">Secure by default</p>
+                            <p class="font-semibold">Protected sessions and CSRF guard</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 lg:col-span-6">
+                    <div class="max-w-xl lg:ml-auto bg-white/95 dark:bg-gray-900/85 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-2xl p-7 md:p-9 shadow-2xl opacity-0 translate-y-8 transition-all duration-700" data-animate>
+                        <div class="mb-8">
+                            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Sign in to Elara</h2>
+                            <p class="text-gray-500 dark:text-gray-400">Use your email and password to open your workspace.</p>
+                        </div>
+
                         <?php if ($error): ?>
                             <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 p-3 rounded-lg mb-6 flex items-center gap-2">
                                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="text-red-500">
@@ -122,59 +175,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
 
-                        <form action="/auth/login.php" method="POST" class="space-y-6">
+                        <form action="/auth/login.php" method="POST" class="space-y-5">
                             <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email address</label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    name="email" 
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
                                     value="<?= h($email) ?>"
-                                    required 
-                                    class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors"
+                                    required
+                                    class="w-full px-4 py-3 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors"
                                     placeholder="you@example.com"
                                 >
                             </div>
-                            
+
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Password</label>
-                                <input 
-                                    type="password" 
-                                    id="password" 
-                                    name="password" 
-                                    required 
-                                    class="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors"
-                                    placeholder="••••••••"
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    class="w-full px-4 py-3 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors"
+                                    placeholder="********"
                                 >
                             </div>
-                            
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <input 
-                                        type="checkbox" 
-                                        id="remember" 
-                                        name="remember" 
+
+                            <div class="flex items-center justify-between gap-3">
+                                <label class="flex items-center text-sm text-gray-700 dark:text-gray-300">
+                                    <input
+                                        type="checkbox"
+                                        id="remember"
+                                        name="remember"
                                         class="h-4 w-4 text-swiss-red focus:ring-swiss-red border-gray-300 rounded"
                                     >
-                                    <label for="remember" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">Remember me</label>
-                                </div>
+                                    <span class="ml-2">Remember me</span>
+                                </label>
                                 <a href="/auth/forgot-password.php" class="text-sm font-medium text-swiss-red hover:text-swiss-red/80 transition-colors">Forgot password?</a>
                             </div>
-                            
-                            <button 
-                                type="submit" 
-                                class="w-full inline-flex items-center justify-center px-6 py-3 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-swiss-red"
+
+                            <button
+                                type="submit"
+                                class="w-full inline-flex items-center justify-center px-6 py-3.5 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/30 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-swiss-red"
                             >
                                 Sign in
-                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="ml-2">
+                                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="ml-2" aria-hidden="true">
                                     <path d="M5 12h14M12 5l7 7-7 7"/>
                                 </svg>
                             </button>
                         </form>
-                        
-                        <div class="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                            Don't have an account? <a href="/auth/register.php" class="font-medium text-swiss-red hover:text-swiss-red/80 transition-colors">Sign up</a>
+
+                        <div class="mt-7 pt-6 border-t border-gray-200 dark:border-gray-700 text-center text-sm text-gray-500 dark:text-gray-400">
+                            Don't have an account?
+                            <a href="/auth/register.php" class="font-medium text-swiss-red hover:text-swiss-red/80 transition-colors">Sign up</a>
                         </div>
                     </div>
                 </div>
@@ -183,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
 
     <script>
-        // Theme initialization using Tailwind's 'class' dark mode
+        // Theme initialization using Tailwind's class dark mode.
         (function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
@@ -193,12 +248,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         })();
 
-        // Fade-in animation for sections
-        (function initFadeIn() {
+        // Scroll-triggered reveal animation.
+        (function initReveal() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
+                        entry.target.classList.add('!opacity-100', '!translate-y-0');
                         observer.unobserve(entry.target);
                     }
                 });
@@ -207,9 +262,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 rootMargin: '0px 0px -50px 0px'
             });
 
-            document.querySelectorAll('.animate-fade-in').forEach(el => {
+            document.querySelectorAll('[data-animate]').forEach(el => {
                 observer.observe(el);
             });
+        })();
+
+        // Theme toggle in navbar.
+        (function initThemeToggle() {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            if (!themeToggle || !themeIcon || !themeText) {
+                return;
+            }
+
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            updateThemeToggle(currentTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const html = document.documentElement;
+                const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
+
+                html.classList.toggle('dark');
+                localStorage.setItem('theme', newTheme);
+                updateThemeToggle(newTheme);
+            });
+
+            function updateThemeToggle(theme) {
+                if (theme === 'dark') {
+                    themeIcon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+                    themeText.textContent = 'Light Mode';
+                } else {
+                    themeIcon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                    themeText.textContent = 'Dark Mode';
+                }
+            }
         })();
     </script>
 </body>
