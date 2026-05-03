@@ -583,23 +583,18 @@
 
                 <!-- Dropdown -->
                 <div id="user-dropdown" class="hidden">
-                    <div style="padding:9px 14px 6px;border-bottom:1px solid #ebebea;" class="dark:border-[#2a2a2a]">
-                        <div style="font-size:12px;color:#aaa;">Signed in as</div>
-                        <div style="font-size:13px;font-weight:600;color:#222;" class="dark:text-gray-200"><?= h($user_name) ?></div>
-                    </div>
                     <a href="/app/profile.php" class="dropdown-item">Profile</a>
                     <a href="/app/settings.php" class="dropdown-item">Settings</a>
+                    <!-- Theme toggle -->
+                    <button onclick="toggleTheme()" style="width:100%;margin-top:4px;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;background:transparent;border:none;cursor:pointer;font-size:13px;color:#888;transition:background .12s;" onmouseover="this.style.background='#ededed'" onmouseout="this.style.background='transparent'">
+                        <svg id="theme-icon-light" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg id="theme-icon-dark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        <span id="theme-label">Dark mode</span>
+                    </button>
                     <div class="dropdown-divider"></div>
                     <a href="/auth/logout.php" class="dropdown-item danger">Log out</a>
                 </div>
             </div>
-
-            <!-- Theme toggle -->
-            <button onclick="toggleTheme()" style="width:100%;margin-top:4px;display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;background:transparent;border:none;cursor:pointer;font-size:13px;color:#888;transition:background .12s;" onmouseover="this.style.background='#ededed'" onmouseout="this.style.background='transparent'">
-                <svg id="theme-icon-light" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <svg id="theme-icon-dark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
-                <span id="theme-label">Dark mode</span>
-            </button>
         </div>
     </aside>
 
@@ -635,42 +630,10 @@
 
         <!-- Welcome screen -->
         <div id="welcome-screen">
-            <div class="fade-up" style="text-align:center;margin-bottom:28px;">
-                <div style="width:52px;height:52px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;font-weight:700;color:white;">E</div>
-                <h1 class="welcome-heading">How can I help?</h1>
+            <div class="fade-up">
+                <!-- <h1 class="welcome-heading">How can I help?</h1> -->
+                <h1 class="welcome-heading">Think bigger - Create faster.</h1>
                 <p class="welcome-sub">Ask me anything — I'm ready when you are.</p>
-            </div>
-
-            <!-- Suggestion cards -->
-            <div class="chip-grid fade-up" style="transition-delay:.08s;">
-                <button onclick="insertPrompt('Help me write something')" class="chip-card">
-                    <div class="chip-icon" style="background:#f0fdf4;">
-                        <svg width="16" height="16" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
-                    </div>
-                    <div class="chip-title">Write</div>
-                    <div class="chip-desc">Drafts, edits & creative work</div>
-                </button>
-                <button onclick="insertPrompt('Help me with programming')" class="chip-card">
-                    <div class="chip-icon" style="background:#eff6ff;">
-                        <svg width="16" height="16" fill="none" stroke="#2563eb" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                    </div>
-                    <div class="chip-title">Code</div>
-                    <div class="chip-desc">Debug, review & build</div>
-                </button>
-                <button onclick="insertPrompt('Help me with research')" class="chip-card">
-                    <div class="chip-icon" style="background:#fffbeb;">
-                        <svg width="16" height="16" fill="none" stroke="#d97706" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    </div>
-                    <div class="chip-title">Research</div>
-                    <div class="chip-desc">Explore & analyze</div>
-                </button>
-                <button onclick="insertPrompt('Help me brainstorm ideas')" class="chip-card">
-                    <div class="chip-icon" style="background:#faf5ff;">
-                        <svg width="16" height="16" fill="none" stroke="#9333ea" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                    </div>
-                    <div class="chip-title">Brainstorm</div>
-                    <div class="chip-desc">Ideas & creativity</div>
-                </button>
             </div>
 
             <!-- Prompt pills -->
