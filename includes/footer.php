@@ -6,7 +6,7 @@
     <!-- Footer -->
     <footer class="mt-12 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
         <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
-            <p>&copy; 2026 Elara AI. All rights reserved.</p>
+            <p>&copy; 2026 Aivyra AI. All rights reserved.</p>
             <div class="flex justify-center gap-4 mt-2 text-xs">
                 <a href="#" class="hover:text-gray-900 dark:hover:text-white">Privacy Policy</a>
                 <a href="#" class="hover:text-gray-900 dark:hover:text-white">Terms of Service</a>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Verify Email page for Elara AI
+ * Verify Email page for Aivyra AI
  * 
  * This page follows the design system from the landing page (index.php)
  * using Tailwind CSS with swiss-red color scheme.
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $emailBody .= $verify_link . "\n\n";
             $emailBody .= "This link expires in 1 hour. If you did not request this, you can ignore this message.";
 
-            if (!send_smtp_email($email, $user['name'], 'Verify your Elara AI email address', $emailBody)) {
+            if (!send_smtp_email($email, $user['name'], 'Verify your Aivyra AI email address', $emailBody)) {
                 $error = 'We could not send the verification email right now. Please check your SMTP settings.';
             } else {
                 $message = 'If an account with that email exists, we have sent verification instructions.';
@@ -81,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Email — Elara AI</title>
-    <meta name="description" content="Verify your Elara AI email address">
+    <title>Verify Email — Aivyra AI</title>
+    <meta name="description" content="Verify your Aivyra AI email address">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
 
             <div class="flex items-center gap-3">

@@ -52,7 +52,7 @@ defined('SMTP_USERNAME') || define('SMTP_USERNAME', '');
 defined('SMTP_PASSWORD') || define('SMTP_PASSWORD', '');
 defined('SMTP_ENCRYPTION') || define('SMTP_ENCRYPTION', 'tls');
 defined('SMTP_FROM_EMAIL') || define('SMTP_FROM_EMAIL', '');
-defined('SMTP_FROM_NAME') || define('SMTP_FROM_NAME', 'Elara');
+defined('SMTP_FROM_NAME') || define('SMTP_FROM_NAME', 'Aivyra');
 
 // PDO connection
 try {

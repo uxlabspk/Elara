@@ -66,7 +66,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 <div class="flex items-center">
                     <a href="index.php" class="flex items-center space-x-2">
                         <span class="text-2xl">🧠</span>
-                        <span class="font-bold text-xl text-gray-900 dark:text-white">Elara AI</span>
+                        <span class="font-bold text-xl text-gray-900 dark:text-white">Aivyra AI</span>
                     </a>
                 </div>
                 
@@ -129,7 +129,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             <div class="flex justify-between items-center h-16">
                 <a href="index.php" class="flex items-center space-x-2">
                     <span class="text-2xl">🧠</span>
-                    <span class="font-bold text-xl text-gray-900 dark:text-white">Elara AI</span>
+                    <span class="font-bold text-xl text-gray-900 dark:text-white">Aivyra AI</span>
                 </a>
                 <div class="flex items-center space-x-4">
                     <a href="/auth/login.php" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">Login</a>

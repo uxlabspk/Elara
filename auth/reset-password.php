@@ -1,6 +1,6 @@
 <?php
 /**
- * Reset Password page for Elara AI
+ * Reset Password page for Aivyra AI
  * 
  * This page follows the design system from the landing page (index.php)
  * using Tailwind CSS with swiss-red color scheme.
@@ -69,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password — Elara AI</title>
-    <meta name="description" content="Reset your Elara AI password">
+    <title>Reset Password — Aivyra AI</title>
+    <meta name="description" content="Reset your Aivyra AI password">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
 
             <div class="flex items-center gap-3">

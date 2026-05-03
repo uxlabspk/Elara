@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact Us page for Elara AI
+ * Contact Us page for Aivyra AI
  * 
  * This page follows the design system from the landing page (index.php)
  * using Tailwind CSS with swiss-red color scheme.
@@ -17,8 +17,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us — Elara AI</title>
-    <meta name="description" content="Get in touch with the Elara AI team. We're here to help with any questions or support you need.">
+    <title>Contact Us — Aivyra AI</title>
+    <meta name="description" content="Get in touch with the Aivyra AI team. We're here to help with any questions or support you need.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -59,7 +59,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
             
             <div class="hidden md:flex items-center gap-8">
@@ -222,7 +222,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                     <div class="space-y-6">
                         <div>
                             <h4 class="font-semibold mb-2">Support</h4>
-                            <p class="text-gray-500 dark:text-gray-400">For technical help and account issues, email our support team at <a href="mailto:support@elara.ai" class="text-swiss-red hover:underline">support@elara.ai</a></p>
+                            <p class="text-gray-500 dark:text-gray-400">For technical help and account issues, email our support team at <a href="mailto:support@aivyra.ai" class="text-swiss-red hover:underline">support@aivyra.ai</a></p>
                         </div>
                         
                         <div>
@@ -232,7 +232,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                         
                         <div>
                             <h4 class="font-semibold mb-2">Partnerships</h4>
-                            <p class="text-gray-500 dark:text-gray-400">Interested in partnering with us? Reach out to <a href="mailto:partners@elara.ai" class="text-swiss-red hover:underline">partners@elara.ai</a></p>
+                            <p class="text-gray-500 dark:text-gray-400">Interested in partnering with us? Reach out to <a href="mailto:partners@aivyra.ai" class="text-swiss-red hover:underline">partners@aivyra.ai</a></p>
                         </div>
                         
                         <div>
@@ -305,7 +305,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
                     <span class="text-2xl font-bold text-swiss-red">E</span>
-                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>
             </div>
@@ -352,7 +352,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         </div>
         
         <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Elara AI. All rights reserved.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Aivyra AI. All rights reserved.</p>
             <div class="flex items-center gap-2">
                 <button id="themeToggle" class="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -426,4 +426,4 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         })();
     </script>
 </body>
-</html>
+</html>>

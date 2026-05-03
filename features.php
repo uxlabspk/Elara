@@ -1,6 +1,6 @@
 <?php
 /**
- * Features page for Elara AI
+ * Features page for Aivyra AI
  * 
  * This page follows the design system from the landing page (index.php)
  * using Tailwind CSS with swiss-red color scheme.
@@ -17,8 +17,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features — Elara AI</title>
-    <meta name="description" content="Discover the powerful features of Elara AI - your personal AI assistant for writing, coding, research, and learning.">
+    <title>Features — Aivyra AI</title>
+    <meta name="description" content="Discover the powerful features of Aivyra AI - your personal AI assistant for writing, coding, research, and learning.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -103,7 +103,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             
             <div class="col-span-12 max-w-xl">
                 <p class="text-lg text-gray-200 leading-relaxed mb-10 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    Discover all the ways Elara AI can help you work smarter, 
+                    Discover all the ways Aivyra AI can help you work smarter, 
                     not harder. From writing to coding, research to learning — 
                     experience the full power of AI assistance.
                 </p>
@@ -347,7 +347,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Aivyra.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -374,7 +374,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
                     <span class="text-2xl font-bold text-swiss-red">E</span>
-                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>
             </div>
@@ -421,7 +421,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         </div>
         
         <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Elara AI. All rights reserved.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Aivyra AI. All rights reserved.</p>
             <div class="flex items-center gap-2">
                 <button id="themeToggle" class="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

@@ -1,6 +1,6 @@
 <?php
 /**
- * About Us page for Elara AI
+ * About Us page for Aivyra AI
  * 
  * This page follows the design system from the landing page (index.php)
  * using Tailwind CSS with swiss-red color scheme.
@@ -17,8 +17,8 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us — Elara AI</title>
-    <meta name="description" content="Learn about Elara AI - our mission, team, and vision for making AI accessible to everyone.">
+    <title>About Us — Aivyra AI</title>
+    <meta name="description" content="Learn about Aivyra AI - our mission, team, and vision for making AI accessible to everyone.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -59,7 +59,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
             
             <div class="hidden md:flex items-center gap-8">
@@ -136,7 +136,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                         backgrounds to leverage the power of artificial intelligence.
                     </p>
                     <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
-                        Elara AI is designed to be your intelligent companion — helping you with 
+                        Aivyra AI is designed to be your intelligent companion — helping you with 
                         writing, coding, research, learning, and countless other tasks. We believe 
                         in building AI that augments human potential rather than replacing it.
                     </p>
@@ -188,7 +188,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                     </svg>
                 </div>
                 <h3 class="text-xl font-semibold mb-3">Continuous Innovation</h3>
-                <p class="text-gray-500 dark:text-gray-400">We're constantly improving and evolving. Elara gets better every day thanks to user feedback and cutting-edge AI research.</p>
+                <p class="text-gray-500 dark:text-gray-400">We're constantly improving and evolving. Aivyra gets better every day thanks to user feedback and cutting-edge AI research.</p>
             </div>
         </div>
     </section>
@@ -210,7 +210,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             <div class="grid grid-cols-12 gap-6">
                 <div class="col-span-12 lg:col-span-8 opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     <p class="text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
-                        Elara AI was born from a simple idea: what if everyone could have 
+                        Aivyra AI was born from a simple idea: what if everyone could have 
                         access to a brilliant assistant that helps them accomplish more? Our 
                         founders, with backgrounds in AI research and product design, set out 
                         to build an AI assistant that feels like a natural extension of your mind.
@@ -238,7 +238,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
                 </p>
                 <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     The people behind<br>
-                    Elara.
+                    Aivyra.
                 </h2>
             </div>
         </div>
@@ -278,7 +278,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Aivyra.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -305,7 +305,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
                     <span class="text-2xl font-bold text-swiss-red">E</span>
-                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>
             </div>
@@ -352,7 +352,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         </div>
         
         <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Elara AI. All rights reserved.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Aivyra AI. All rights reserved.</p>
             <div class="flex items-center gap-2">
                 <button id="themeToggle" class="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

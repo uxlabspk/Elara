@@ -42,7 +42,7 @@ $owner = $stmt->fetch();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elara AI - Shared Conversation</title>
+    <title>Aivyra AI - Shared Conversation</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -89,7 +89,7 @@ $owner = $stmt->fetch();
             <div class="flex justify-between items-center h-16">
                 <a href="/app/index.php" class="flex items-center space-x-2">
                     <span class="text-2xl">🧠</span>
-                    <span class="font-bold text-xl text-gray-900 dark:text-white">Elara AI</span>
+                    <span class="font-bold text-xl text-gray-900 dark:text-white">Aivyra AI</span>
                 </a>
                 <div class="flex items-center space-x-4">
                     <button id="theme-toggle" class="p-2 rounded-full text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white">
@@ -150,7 +150,7 @@ $owner = $stmt->fetch();
                     This is a shared conversation. You can view but not modify the messages.
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-500 mt-2">
-                    <a href="/app/index.php" class="text-blue-600 hover:text-blue-700 dark:text-blue-400">Start your own conversation with Elara AI</a>
+                    <a href="/app/index.php" class="text-blue-600 hover:text-blue-700 dark:text-blue-400">Start your own conversation with Aivyra AI</a>
                 </p>
             </div>
         </div>
@@ -158,7 +158,7 @@ $owner = $stmt->fetch();
     
     <footer class="mt-12 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
         <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
-            <p>&copy; 2026 Elara AI. All rights reserved.</p>
+            <p>&copy; 2026 Aivyra AI. All rights reserved.</p>
         </div>
     </footer>
     

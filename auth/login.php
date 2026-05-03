@@ -1,6 +1,6 @@
 <?php
 /**
- * Elara AI Login Page
+ * Aivyra AI Login Page
  * Theme-matched login page with dark/light mode support
  */
 
@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Elara AI</title>
-    <meta name="description" content="Log in to your Elara AI account to access your personal AI assistant.">
+    <title>Login — Aivyra AI</title>
+    <meta name="description" content="Log in to your Aivyra AI account to access your personal AI assistant.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
 
             <div class="flex items-center gap-3">
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-span-12 lg:col-span-6">
                     <div class="max-w-xl lg:ml-auto bg-white/95 dark:bg-gray-900/85 backdrop-blur border border-gray-200 dark:border-gray-700 rounded-2xl p-7 md:p-9 shadow-2xl opacity-0 translate-y-8 transition-all duration-700" data-animate>
                         <div class="mb-8">
-                            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Sign in to Elara</h2>
+                            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Sign in to Aivyra</h2>
                             <p class="text-gray-500 dark:text-gray-400">Use your email and password to open your workspace.</p>
                         </div>
 

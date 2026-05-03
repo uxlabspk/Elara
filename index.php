@@ -1,6 +1,6 @@
 <?php
 /**
- * Router for Elara AI
+ * Router for Aivyra AI
  * Handles routing for:
  *   / -> Landing page (this file)
  *   /app/* -> app/* (application pages)
@@ -36,8 +36,8 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elara AI — Your Personal AI Assistant</title>
-    <meta name="description" content="Elara AI is your personal AI assistant powered by advanced AI models. Chat, create, code, and learn with intelligent conversations.">
+    <title>Aivyra AI — Your Personal AI Assistant</title>
+    <meta name="description" content="Aivyra AI is your personal AI assistant powered by advanced AI models. Chat, create, code, and learn with intelligent conversations.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -81,7 +81,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="#" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
             
             <div class="hidden md:flex items-center gap-8">
@@ -291,7 +291,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"Elara has completely transformed how I work. It's like having a brilliant colleague available 24/7."</p>
+                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"Aivyra has completely transformed how I work. It's like having a brilliant colleague available 24/7."</p>
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-400 to-purple-600"></div>
                         <div>
@@ -313,7 +313,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 </div>
                 
                 <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 opacity-0 translate-y-8 transition-all duration-700" data-animate>
-                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"I use Elara daily for research and writing. It's genuinely improved my productivity by leaps and bounds."</p>
+                    <p class="italic text-gray-700 dark:text-gray-300 mb-6">"I use Aivyra daily for research and writing. It's genuinely improved my productivity by leaps and bounds."</p>
                     <div class="flex items-center gap-3">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-br from-sky-400 to-cyan-500"></div>
                         <div>
@@ -430,7 +430,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                 <div class="col-span-12  opacity-0 translate-y-8 transition-all duration-700" data-animate>
                     <div class="border-b border-gray-200 dark:border-gray-700">
                         <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
-                            <span>What is Elara AI?</span>
+                            <span>What is Aivyra AI?</span>
                             <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path d="M12 5v14M5 12h14"/>
                             </svg>
@@ -442,13 +442,13 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
                     
                     <div class="border-b border-gray-200 dark:border-gray-700">
                         <button class="w-full py-6 flex justify-between items-center text-left text-lg font-medium" onclick="toggleAccordion(this)">
-                            <span>Is Elara free to use?</span>
+                            <span>Is Aivyra free to use?</span>
                             <svg class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path d="M12 5v14M5 12h14"/>
                             </svg>
                         </button>
                         <div class="max-h-0 overflow-hidden transition-all duration-300">
-                            <div class="pb-6 text-gray-500 dark:text-gray-400">Yes, Elara has a free plan that lets you use basic features indefinitely. We also offer a Pro plan for users who need more advanced features and faster responses.</div>
+                            <div class="pb-6 text-gray-500 dark:text-gray-400">Yes, Aivyra has a free plan that lets you use basic features indefinitely. We also offer a Pro plan for users who need more advanced features and faster responses.</div>
                         </div>
                     </div>
                     
@@ -484,7 +484,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
     <section class="py-28 container mx-auto px-6">
         <div class="text-center opacity-0 translate-y-8 transition-all duration-700" data-animate>
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">Ready to get started?</h2>
-            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Elara.</p>
+            <p class="text-lg text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-10">Join thousands of users who have already transformed their workflow with Aivyra.</p>
             <div class="flex flex-wrap gap-4 justify-center">
                 <?php if (!is_logged_in()): ?>
                     <a href="/auth/register.php" class="inline-flex items-center gap-2 px-7 py-4 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/25 transition-all">
@@ -511,7 +511,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
             <div class="col-span-12 md:col-span-3">
                 <a href="#" class="flex items-center gap-2 no-underline mb-4">
                     <span class="text-2xl font-bold text-swiss-red">E</span>
-                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                    <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>
             </div>
@@ -558,7 +558,7 @@ if ($uri === '/' || $uri === '' || $uri === '/index.php') {
         </div>
         
         <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Elara AI. All rights reserved.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 md:mb-0">&copy; 2026 Aivyra AI. All rights reserved.</p>
             <div class="flex items-center gap-2">
                 <button id="themeToggle" class="flex items-center gap-2 px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

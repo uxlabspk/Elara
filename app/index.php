@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= csrf_token() ?>">
-    <title>Chat — Elara AI</title>
+    <title>Chat — Aivyra AI</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
@@ -187,7 +187,7 @@
             <!-- Logo + collapse toggle -->
             <div class="flex items-center gap-2.5 px-4 pt-[18px] pb-3">
                 <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center text-white font-bold text-[17px] flex-shrink-0" style="background:var(--accent)">E</div>
-                <span class="font-bold text-[15px] tracking-tight dark:text-gray-100 flex-1">Elara</span>
+                <span class="font-bold text-[15px] tracking-tight dark:text-gray-100 flex-1">Aivyra</span>
                 <!-- Desktop collapse button -->
                 <button onclick="toggleSidebar()" id="collapse-btn"
                     class="hidden md:flex items-center justify-center w-7 h-7 rounded-lg text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
@@ -275,7 +275,7 @@
             </button>
             <div class="flex items-center gap-2">
                 <div class="w-[26px] h-[26px] rounded-lg flex items-center justify-center text-white font-bold text-[15px]" style="background:var(--accent)">E</div>
-                <span class="font-bold text-[15px] dark:text-gray-100">Elara</span>
+                <span class="font-bold text-[15px] dark:text-gray-100">Aivyra</span>
             </div>
             <button onclick="newChat()" class="px-3 py-1.5 text-white border-none rounded-lg text-[13px] font-semibold cursor-pointer" style="background:var(--accent)">New</button>
         </div>
@@ -328,7 +328,7 @@
             <div class="max-w-[720px] mx-auto bg-[#f5f5f4] dark:bg-[#1e1e1e] border-[1.5px] border-[#e4e4e2] dark:border-[#2e2e2e] rounded-2xl overflow-hidden focus-within:border-[#c8c8c6] dark:focus-within:border-[#3e3e3e] focus-within:shadow-[0_0_0_3px_rgba(0,0,0,0.06)] dark:focus-within:shadow-[0_0_0_3px_rgba(255,255,255,0.04)] transition-all">
                 <textarea
                     id="message-input"
-                    placeholder="Message Elara…"
+                    placeholder="Message Aivyra…"
                     rows="1"
                     oninput="autoResize(this)"
                     onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
@@ -340,7 +340,7 @@
                             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                         </button> -->
                         <button class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[#e0e0de] dark:border-[#2e2e2e] bg-transparent cursor-pointer text-[#777] dark:text-[#666] text-[12px] font-medium hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:border-[#d0d0ce] transition-colors" title="Switch model">
-                            Elara 1.0
+                            Aivyra 1.0
                             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                     </div>
@@ -351,7 +351,7 @@
                     </button>
                 </div>
             </div>
-            <p class="text-center text-[11.5px] text-[#c0c0be] dark:text-[#444] mt-2 max-w-[720px] mx-auto">Elara can make mistakes. Verify important information.</p>
+            <p class="text-center text-[11.5px] text-[#c0c0be] dark:text-[#444] mt-2 max-w-[720px] mx-auto">Aivyra can make mistakes. Verify important information.</p>
         </div>
     </main>
 

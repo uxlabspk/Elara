@@ -42,7 +42,7 @@ function send_smtp_email($toEmail, $toName, $subject, $body) {
     $password = defined('SMTP_PASSWORD') ? SMTP_PASSWORD : '';
     $encryption = strtolower(defined('SMTP_ENCRYPTION') ? SMTP_ENCRYPTION : 'tls');
     $fromEmail = defined('SMTP_FROM_EMAIL') ? SMTP_FROM_EMAIL : $username;
-    $fromName = defined('SMTP_FROM_NAME') ? SMTP_FROM_NAME : 'Elara';
+    $fromName = defined('SMTP_FROM_NAME') ? SMTP_FROM_NAME : 'Aivyra';
 
     if ($username === '' || $password === '' || $fromEmail === '') {
         error_log('SMTP is not configured.');

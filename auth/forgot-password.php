@@ -1,6 +1,6 @@
 <?php
 /**
- * Elara AI Forgot Password Page
+ * Aivyra AI Forgot Password Page
  * Theme-matched forgot password page with dark/light mode support
  */
 
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $reset_link = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . '/auth/reset-password.php?token=' . $token;
 
             $emailBody = "Hello " . $user['name'] . ",\n\n";
-            $emailBody .= "We received a request to reset your Elara AI password.\n\n";
+            $emailBody .= "We received a request to reset your Aivyra AI password.\n\n";
             $emailBody .= "Reset your password here: " . $reset_link . "\n\n";
             $emailBody .= "This link expires in 1 hour. If you did not request this, you can ignore this message.";
 
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password — Elara AI</title>
-    <meta name="description" content="Reset your Elara AI password">
+    <title>Forgot Password — Aivyra AI</title>
+    <meta name="description" content="Reset your Aivyra AI password">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
                 <span class="text-2xl font-bold text-swiss-red">E</span>
-                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Elara</span>
+                <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
 
             <div class="flex items-center gap-3">
