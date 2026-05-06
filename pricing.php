@@ -58,7 +58,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
-                <span class="text-2xl font-bold text-swiss-red">E</span>
+                <img src="/assets/images/logo.png" alt="aivyra logo" class="w-7" />
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
             
@@ -383,7 +383,7 @@ $theme = ($settings['theme'] ?? 'light') == 'dark' ? 'dark' : 'light';
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-12 md:col-span-3">
                 <a href="/" class="flex items-center gap-2 no-underline mb-4">
-                    <span class="text-2xl font-bold text-swiss-red">E</span>
+                    <img src="/assets/images/logo.png" alt="aivyra logo" class="w-7" />
                     <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
                 </a>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Your personal AI assistant.</p>

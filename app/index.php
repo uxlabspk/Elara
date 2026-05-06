@@ -186,7 +186,8 @@
 
             <!-- Logo + collapse toggle -->
             <div class="flex items-center gap-2.5 px-4 pt-[18px] pb-3">
-                <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center text-white font-bold text-[17px] flex-shrink-0" style="background:var(--accent)">E</div>
+                <!-- <div class="w-[30px] h-[30px] rounded-lg flex items-center justify-center text-white font-bold text-[17px] flex-shrink-0" style="background:var(--accent)">E</div> -->
+                <img src="../assets/images/logo.png" alt="aivyra logo" class="w-7" />
                 <span class="font-bold text-[15px] tracking-tight dark:text-gray-100 flex-1">Aivyra</span>
                 <!-- Desktop collapse button -->
                 <button onclick="toggleSidebar()" id="collapse-btn"
