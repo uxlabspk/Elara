@@ -274,10 +274,6 @@
             <button onclick="openSidebar()" class="p-1.5 bg-transparent border-none cursor-pointer text-gray-600 dark:text-gray-400">
                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </button>
-            <div class="flex items-center gap-2">
-                <div class="w-[26px] h-[26px] rounded-lg flex items-center justify-center text-white font-bold text-[15px]" style="background:var(--accent)">E</div>
-                <span class="font-bold text-[15px] dark:text-gray-100">Aivyra</span>
-            </div>
             <button onclick="newChat()" class="px-3 py-1.5 text-white border-none rounded-lg text-[13px] font-semibold cursor-pointer" style="background:var(--accent)">New</button>
         </div>
 
@@ -341,7 +337,7 @@
                             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
                         </button> -->
                         <button class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[#e0e0de] dark:border-[#2e2e2e] bg-transparent cursor-pointer text-[#777] dark:text-[#666] text-[12px] font-medium hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:border-[#d0d0ce] transition-colors" title="Switch model">
-                            Aivyra 1.0
+                            Aivyra 2.0
                             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                         </button>
                     </div>
