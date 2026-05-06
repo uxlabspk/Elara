@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 no-underline">
-                <span class="text-2xl font-bold text-swiss-red">E</span>
+                <img src="../assets/images/logo.png" alt="aivyra logo" class="w-7" />
                 <span class="font-bold text-lg text-gray-900 dark:text-gray-50">Aivyra</span>
             </a>
 
