@@ -244,7 +244,7 @@ function call_mistral($messages, $settings) {
     $url = MISTRAL_API_URL;
 
     $payload = [
-        'model' => $settings['model'] ?? 'mistral-small-latest',
+        'model' => 'mistral-small-latest',
         'messages' => $messages,
         'temperature' => (float)($settings['temperature'] ?? 0.7),
         'max_tokens' => (int)($settings['max_tokens'] ?? 2048),
