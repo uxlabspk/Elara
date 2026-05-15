@@ -14,7 +14,11 @@ $userId = $_SESSION['user_id'];
 $message = trim($_POST['message'] ?? '');
 $convId = isset($_POST['conversation_id']) ? (int)$_POST['conversation_id'] : 0;
 
-if ($message === '') {
+// Handle file upload
+$fileContent = $_POST['file_content'] ?? '';
+$fileName = $_POST['file_name'] ?? '';
+
+if ($message === '' && $fileContent === '') {
     echo json_encode(['error' => 'Message empty']);
     exit;
 }
@@ -44,8 +48,12 @@ if ($convId === 0) {
 }
 
 // Save user message
+$finalMessage = $message;
+if ($fileContent !== '') {
+    $finalMessage = $message . "\n\n[ATTACHED FILE: " . $fileName . "]\n" . substr($fileContent, 0, 2000) . (strlen($fileContent) > 2000 ? "..." : "");
+}
 $stmt = $pdo->prepare("INSERT INTO messages (conversation_id, role, content) VALUES (?, 'user', ?)");
-$stmt->execute([$convId, $message]);
+$stmt->execute([$convId, $finalMessage]);
 
 // Build message history for API (limit to last 20 messages to manage tokens)
 $stmt = $pdo->prepare("SELECT role, content FROM messages WHERE conversation_id = ? ORDER BY created_at DESC LIMIT 20");
@@ -59,6 +67,14 @@ $apiMessages = [];
 
 foreach ($history as $msg) {
     $apiMessages[] = ['role' => $msg['role'], 'content' => $msg['content']];
+}
+
+// If there's a file attachment, add it to the current message
+if ($fileContent !== '') {
+    $lastMessageIndex = count($apiMessages) - 1;
+    if ($lastMessageIndex >= 0 && $apiMessages[$lastMessageIndex]['role'] === 'user') {
+        $apiMessages[$lastMessageIndex]['content'] = $message . "\n\n[FILE CONTENT]\n" . $fileContent;
+    }
 }
 
 // Call Mistral

@@ -333,9 +333,10 @@
                 ></textarea>
                 <div class="flex items-center justify-between px-2.5 pb-2.5 pt-1.5">
                     <div class="flex gap-1 items-center">
-                        <!-- <button class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border-none bg-transparent cursor-pointer text-[#999] hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:text-[#555] dark:hover:text-[#aaa] transition-colors text-[12.5px] font-medium" title="Attach file">
+                        <button onclick="document.getElementById('file-input').click()" class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border-none bg-transparent cursor-pointer text-[#999] hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:text-[#555] dark:hover:text-[#aaa] transition-colors text-[12.5px] font-medium" title="Attach file">
                             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-                        </button> -->
+                        </button>
+                        <input type="file" id="file-input" style="display:none;" onchange="handleFileUpload(event)" accept=".txt,.pdf,.doc,.docx,.csv,.xlsx,.json">
                         <button class="flex items-center gap-1 px-2.5 py-1 rounded-lg border border-[#e0e0de] dark:border-[#2e2e2e] bg-transparent cursor-pointer text-[#777] dark:text-[#666] text-[12px] font-medium hover:bg-[#ebebea] dark:hover:bg-[#2a2a2a] hover:border-[#d0d0ce] transition-colors" title="Switch model">
                             Aivyra 2.0
                             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
@@ -549,6 +550,29 @@
             if (el) el.remove();
         }
 
+        /* ─── File upload handler ─── */
+        let uploadedFileContent = '';
+        let uploadedFileName = '';
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                uploadedFileContent = e.target.result;
+                uploadedFileName = file.name;
+                const ta = document.getElementById('message-input');
+                ta.value = `Analyze this file: ${file.name}`;
+                autoResize(ta);
+                ta.focus();
+            };
+            reader.onerror = function() {
+                alert('Error reading file');
+            };
+            reader.readAsText(file);
+        }
+
         /* ─── Send ─── */
         function sendMessage() {
             const ta = document.getElementById('message-input');
@@ -565,14 +589,18 @@
             appendTyping();
             document.getElementById('send-btn').disabled = true;
 
+            const formData = new FormData();
+            formData.append('csrf_token', document.querySelector('meta[name="csrf-token"]').content);
+            formData.append('message', content);
+            formData.append('conversation_id', conversationId);
+            if (uploadedFileContent) {
+                formData.append('file_content', uploadedFileContent);
+                formData.append('file_name', uploadedFileName);
+            }
+
             fetch('chat.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams({
-                    csrf_token: document.querySelector('meta[name="csrf-token"]').content,
-                    message: content,
-                    conversation_id: conversationId
-                })
+                body: formData
             })
             .then(r => r.json())
             .then(data => {
@@ -595,6 +623,11 @@
                 alert('Error: ' + err);
             });
         }
+
+        // Reset file upload after sending
+        uploadedFileContent = '';
+        uploadedFileName = '';
+        document.getElementById('file-input').value = '';
 
         /* ─── Share / Delete ─── */
         function shareChat() {
