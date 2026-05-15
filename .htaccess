@@ -1,8 +1,5 @@
 RewriteEngine On
 
-# Route root to marketing page
-RewriteRule ^$ marketing.php [L]
-RewriteRule ^index\.php$ marketing.php [L]
 
 # Route /app to app directory
 RewriteRule ^app/?$ app/index.php [L]
