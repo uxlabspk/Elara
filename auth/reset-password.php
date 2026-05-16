@@ -177,14 +177,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">New Password</label>
-                                <input type="password" id="password" name="password"
-                                       class="w-full px-4 py-3 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors" required minlength="8" placeholder="At least 8 characters">
+                                <div class="relative">
+                                    <input type="password" id="password" name="password"
+                                           class="w-full px-4 py-3 pr-12 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors" required minlength="8" placeholder="At least 8 characters">
+                                    <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors" onclick="togglePasswordVisibility('password')">
+                                        <svg id="password-eye" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="inline-block">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <svg id="password-eye-off" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="hidden">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
 
                             <div>
                                 <label for="password_confirm" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Confirm New Password</label>
-                                <input type="password" id="password_confirm" name="password_confirm"
-                                       class="w-full px-4 py-3 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors" required>
+                                <div class="relative">
+                                    <input type="password" id="password_confirm" name="password_confirm"
+                                           class="w-full px-4 py-3 pr-12 bg-gray-50/90 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-swiss-red focus:border-transparent transition-colors" required>
+                                    <button type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors" onclick="togglePasswordVisibility('password_confirm')">
+                                        <svg id="password_confirm-eye" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="inline-block">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                        <svg id="password_confirm-eye-off" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="hidden">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
 
                             <button type="submit" class="inline-flex items-center gap-2 w-full justify-center px-7 py-3.5 bg-swiss-red text-white font-semibold rounded-lg hover:-translate-y-0.5 hover:shadow-xl hover:shadow-swiss-red/30 transition-all">
@@ -269,6 +293,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         })();
+
+        // Toggle password visibility
+        function togglePasswordVisibility(fieldId) {
+            const input = document.getElementById(fieldId);
+            const eye = document.getElementById(fieldId + '-eye');
+            const eyeOff = document.getElementById(fieldId + '-eye-off');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                eye.classList.add('hidden');
+                eyeOff.classList.remove('hidden');
+            } else {
+                input.type = 'password';
+                eye.classList.remove('hidden');
+                eyeOff.classList.add('hidden');
+            }
+        }
     </script>
 </body>
 </html>
